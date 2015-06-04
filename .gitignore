@@ -1,0 +1,11 @@
+# Directories #
+.metadata
+/build/
+/bin/
+target/
+
+# OS Files #
+.DS_Store
+ 
+*.class
+*.log
