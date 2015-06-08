@@ -1,5 +1,6 @@
 # Directories #
 .metadata
+.recommenders
 /build/
 /bin/
 target/
