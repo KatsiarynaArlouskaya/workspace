@@ -1,4 +1,4 @@
-package com.epam.lesson01.Arlouskaya;
+package com.epam.lesson01.task01.Arlouskaya;
 
 import java.util.Scanner;
 
