@@ -12,7 +12,7 @@ public class NewFtpClient {
 	FTPClient ftp;
 	final static String STRING_EMPTY ="";
 	
-	boolean connectFTP(String serverAddress, String username, String password) {
+	public boolean connectFTP(String serverAddress, String username, String password) {
 		try {
 			System.out.println("Try to connect to ftp");
 			// new ftp client
@@ -63,7 +63,7 @@ public class NewFtpClient {
 		}
 	}
 
-	void goBack() {
+	public void goBack() {
 		try {
 			// go to parentDir
 			if (ftp.changeToParentDirectory()) {
@@ -77,7 +77,7 @@ public class NewFtpClient {
 		}
 	}
 
-	void downloadFile(String localDirectory, String fileName) {
+	public void downloadFile(String localDirectory, String fileName) {
 		if (!fileName.equals(STRING_EMPTY)) {
 			try {
 				ftp.setFileType(FTP.BINARY_FILE_TYPE); // change transfer mode
@@ -101,7 +101,7 @@ public class NewFtpClient {
 		}
 	}
 
-	void moveToDir(String remoteDirectory) {
+	public void moveToDir(String remoteDirectory) {
 		if (!remoteDirectory.equals(STRING_EMPTY)) {
 			try {
 				// go to remoteDir
@@ -120,7 +120,7 @@ public class NewFtpClient {
 		}
 	}
 
-	void listDirsFiles() {
+	public void listDirsFiles() {
 		try {
 			// get list of filenames
 			System.out.println("--------Current directory is "
