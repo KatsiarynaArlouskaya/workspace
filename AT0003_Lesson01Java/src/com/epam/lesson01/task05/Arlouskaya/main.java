@@ -23,13 +23,13 @@ public class main {
 		
 		in.close();
 		if (isNumbers){
-			inPaw(a);
-			inPaw(b);
-			inPaw(c);				
+			pawNumber(a);
+			pawNumber(b);
+			pawNumber(c);				
 		}
 	}
 
-	private static void inPaw(double a) {
+	private static void pawNumber(double a) {
 		if (a<0){
 			System.out.println(Math.pow(a, 4));				
 		}
