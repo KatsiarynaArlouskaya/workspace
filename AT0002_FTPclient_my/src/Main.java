@@ -50,6 +50,7 @@ public class Main {
 					break;
 				}
 			} while (!command.equals("exit"));
+			in.close();
 		} else {
 			System.out.println("Connect is fail");
 		}
