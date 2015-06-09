@@ -9,20 +9,17 @@ public class main {
 	public static void main(String[] args) {
 		Boolean isNumbers = getDate();
 		if (isNumbers) {
-			getPerimetr();
-			getArea();
+			System.out.println("Perimeter=" + getPerimetr(a, b));
+			System.out.println("Area=" + getArea(a, b));
 		}
-
 	}
 
-	private static void getPerimetr() {
-		double perimeter = a + b + Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
-		System.out.println("Perimeter=" + perimeter);
+	public static double getPerimetr(double a, double b) {
+		return a + b + Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
 	}
 
-	private static void getArea() {
-		double area = a * b / 2;
-		System.out.println("Area=" + area);
+	public static double getArea(double a, double b) {
+		return a * b / 2;
 	}
 
 	private static Boolean getDate() {
