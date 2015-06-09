@@ -3,6 +3,7 @@
 .recommenders
 /build/
 /bin/
+/test-output/
 target/
 
  
