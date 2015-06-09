@@ -1,3 +1,4 @@
+package at0002;
 import java.util.Scanner;
 
 public class Main {
