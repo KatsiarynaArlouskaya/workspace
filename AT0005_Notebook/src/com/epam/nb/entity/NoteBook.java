@@ -6,9 +6,7 @@ import java.util.Date;
 public class NoteBook {
 	ArrayList<Note> notes = new ArrayList<Note>();
 	public void addNewNote(String note, Date date){
-		Note newNote = new Note();
-		newNote.setNote(note);
-		newNote.setDate(date);
+		Note newNote = new Note(note, date);
 		notes.add(newNote);
 	}
 	public void delNote(int position) {
