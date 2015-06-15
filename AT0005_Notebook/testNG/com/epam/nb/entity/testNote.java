@@ -24,6 +24,11 @@ public class testNote {
 		note = new Note();
 	}
 	@Test
+	public void checkEmptyNote() {
+		Assert.assertEquals(note.getContent(), null);
+		Assert.assertEquals(note.getDate(), null);
+	}
+	@Test
 	public void setgetContent() {
 		note.setContent(CONTENT);
 		Assert.assertEquals(note.getContent(), CONTENT);
@@ -32,7 +37,7 @@ public class testNote {
 	public void setgetData() {
 		note.setDate(date);
 		Assert.assertEquals(note.getDate(), date);
-	}
+	}	
 	@AfterClass
 	public void tearDown(){
 		date=null;	
