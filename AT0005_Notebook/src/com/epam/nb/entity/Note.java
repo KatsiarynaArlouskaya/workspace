@@ -6,9 +6,19 @@ public class Note {
 	private String content;
 	private Date date;
 
-	Note(String newContent, Date newDate) {
+	public Note(String newContent, Date newDate) {
 		content = newContent;
 		date = newDate;
+	}
+
+	public String toString() {
+		return getClass().getName() + "@" + "content: " + content + ", date: "
+				+ date;
+	}
+
+	public int hashCode() {
+		return (int) (((null == content) ? 0 : content.hashCode()) + ((null == date) ? 0
+				: date.hashCode()));
 	}
 
 	public boolean equals(Object obj) {
