@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.AfterClass;
 
-import com.epam.nb.dao.memory.NoteBookProvider;
+import com.epam.nb.dao.impl.memory.NoteBookProvider;
 
 public class testNotebook {
 	final String TEST_CONTENT = "new content";	

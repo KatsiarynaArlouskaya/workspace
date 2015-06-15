@@ -1,4 +1,4 @@
-package com.epam.nb.dao.memory;
+package com.epam.nb.dao.impl.memory;
 
 import com.epam.nb.entity.NoteBook;
 
