@@ -25,7 +25,6 @@ public class NoteBookConsoleView {
 	}
 
 	public void print(NoteBook noteBook) {
-		System.out.println("There are " + noteBook.getSize() + " notes in Notebook");
 		for (int i = 0; i < noteBook.getSize(); i++) {
 			System.out.print(noteBook.getNote(i).getDate()+ "  ");
 			System.out.println(noteBook.getNote(i).getContent());

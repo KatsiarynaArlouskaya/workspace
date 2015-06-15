@@ -6,4 +6,6 @@ public interface NoteBookDao {
     Note find(String content);
     Note find(int id);
     void add(Note note);
+    void create();
+    int size();
 }

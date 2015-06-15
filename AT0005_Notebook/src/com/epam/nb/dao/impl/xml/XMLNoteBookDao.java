@@ -20,6 +20,21 @@ public class XMLNoteBookDao implements NoteBookDao {
 	@Override
 	public void add(Note note) {
 		// TODO Auto-generated method stub
+		
 	}
+
+	@Override
+	public void create() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int size() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 
 }

@@ -4,17 +4,16 @@ import java.util.List;
 
 public class Response {
 	Note note;
-	//NoteBook notebook;
+	int idNote;
 	boolean status;
 	String errorMessage;
 	
-	/*public void setNotebook(NoteBook newNotebook){
-		notebook=newNotebook;
+	public void setIdNote(int newId) {
+		idNote=newId;
 	}
-	public NoteBook getNotebook(){
-		return notebook;
-	}*/
-	
+	public int getIdNote() {
+		return idNote;
+	}
 	public void setNote(Note newNote){
 		note = newNote;
 	}
