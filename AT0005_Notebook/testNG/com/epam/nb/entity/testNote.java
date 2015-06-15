@@ -1,4 +1,4 @@
-package com.epam.nb.enyity;
+package com.epam.nb.entity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
