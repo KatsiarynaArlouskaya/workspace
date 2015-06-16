@@ -42,6 +42,11 @@ public class NoteBook {
 		Note newNote = new Note(content, date);
 		notes.add(newNote);
 	}
+	
+	public void addNewNote(String content) {
+		Note newNote = new Note(content);
+		notes.add(newNote);
+	}
 
 	public void addNewNote(Note newNote) {
 		notes.add(newNote);

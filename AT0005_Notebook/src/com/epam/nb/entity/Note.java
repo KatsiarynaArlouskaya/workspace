@@ -10,6 +10,12 @@ public class Note {
 		content = newContent;
 		date = newDate;
 	}
+	
+	public Note(String newContent) {
+		content = newContent;
+		date = new Date();
+	}
+
 
 	public String toString() {
 		return getClass().getName() + "@" + "content: " + content + ", date: "

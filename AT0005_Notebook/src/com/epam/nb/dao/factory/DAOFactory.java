@@ -13,6 +13,7 @@ public class DAOFactory {
 	private static final DAOFactory daoFactory = new DAOFactory();
 
 	Map<SourceType, NoteBookDao> dao = new HashMap<>();
+	SourceType daoType;
 	
 
 	public static DAOFactory getInstance() {
@@ -20,15 +21,15 @@ public class DAOFactory {
 	}
 
 	public DAOFactory() {
+		ResourceBundle rb = ResourceBundle.getBundle("source");
+		String source = rb.getString("dao.type");
+		daoType = SourceType.valueOf(source);
 		dao.put(SourceType.MEMORY, new MemoryNoteBookDao());
 		dao.put(SourceType.DB, new DBNoteBookDao());
 		dao.put(SourceType.XML, new XMLNoteBookDao());	
 	}
 
 	public NoteBookDao getDAO() {
-		ResourceBundle rb = ResourceBundle.getBundle("source");
-		String source = rb.getString("daotype");
-		SourceType daoType = SourceType.valueOf(source);
 		return dao.get(daoType);
 	}
 }

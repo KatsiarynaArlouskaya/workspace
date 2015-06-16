@@ -1,5 +1,6 @@
 package com.epam.nb.view;
 
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import com.epam.nb.controller.CommandName;
@@ -20,14 +21,12 @@ public class main {
 		}
 		request = new Request();
 		request.setParam(RequestParam.CONTENT_FOR_NOTE, "first note");
-		request.setParam(RequestParam.DATE_FOR_NOTE, GregorianCalendar.getInstance().getTime());
 		response = controller.doCommand(CommandName.ADD_NEW_NOTE, request);
 		if (response.getStatus()==true){
 			System.out.println("Add note is OK");
 		}
 		request = new Request();
 		request.setParam(RequestParam.CONTENT_FOR_NOTE, "second note");
-		request.setParam(RequestParam.DATE_FOR_NOTE, GregorianCalendar.getInstance().getTime());
 		response = controller.doCommand(CommandName.ADD_NEW_NOTE, request);
 		if (response.getStatus()==true){
 			System.out.println("Add note is OK");

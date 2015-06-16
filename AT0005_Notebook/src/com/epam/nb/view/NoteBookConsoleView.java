@@ -1,12 +1,17 @@
 package com.epam.nb.view;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
+
 import com.epam.nb.entity.Note;
 import com.epam.nb.entity.NoteBook;
 
 public class NoteBookConsoleView {
+    DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+
 	public void print(Note note) {
-		System.out.println(note.getDate());
+		System.out.println(formatter.format(note.getDate()));
 		System.out.println(note.getContent());
 	}
 

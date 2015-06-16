@@ -26,7 +26,7 @@ public class MemoryNoteBookDao implements NoteBookDao {
 	}
 
 
-	public void add(Note note) {
+	public void add(Note note) {		
 		NoteBook noteBook = NoteBookProvider.getInstance().getNoteBook();
 		noteBook.addNewNote(note);
 	}
