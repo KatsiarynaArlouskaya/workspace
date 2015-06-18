@@ -1,9 +1,14 @@
 package com.epam.nb.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class NoteBook {
+public class NoteBook implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Note> notes = new ArrayList<Note>();
 
 	public String toString() {
@@ -62,5 +67,9 @@ public class NoteBook {
 
 	public int getSize() {
 		return notes.size();
+	}
+	
+	public void delAllNotes() {
+		notes = new ArrayList<Note>();
 	}
 }

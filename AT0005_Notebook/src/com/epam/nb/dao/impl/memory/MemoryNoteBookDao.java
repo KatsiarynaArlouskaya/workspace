@@ -35,14 +35,18 @@ public class MemoryNoteBookDao implements NoteBookDao {
 	@Override
 	public void create() {
 		NoteBook noteBook = NoteBookProvider.getInstance().getNoteBook();
+		noteBook.delAllNotes();
 		
 	}
 
 
 	@Override
-	public int size() {
-		NoteBook noteBook = NoteBookProvider.getInstance().getNoteBook();		
-		return noteBook.getSize();
+	public NoteBook notebook() {
+		NoteBook noteBook = NoteBookProvider.getInstance().getNoteBook();
+		return noteBook;
 	}
+
+
+	
 
 }

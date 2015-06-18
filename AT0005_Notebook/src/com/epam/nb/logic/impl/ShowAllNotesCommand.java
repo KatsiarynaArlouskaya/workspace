@@ -17,9 +17,10 @@ public class ShowAllNotesCommand implements Command {
 	public Response execute(Request request) {
 		NoteBookDao dao = DAOFactory.getInstance().getDAO();
 		NoteBookConsoleView console = new NoteBookConsoleView();
-		for (int i = 0; i < dao.size(); i++) {
+	/*	for (int i = 0; i < dao.size(); i++) {
 			console.print(dao.find(i));
-		}		
+		}	*/
+		console.print(dao.notebook());
 		Response response = new Response();
 		response.setStatus(true);
 		return response;

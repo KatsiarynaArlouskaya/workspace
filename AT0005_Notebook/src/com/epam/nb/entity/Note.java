@@ -1,8 +1,13 @@
 package com.epam.nb.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Note {
+public class Note implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String content;
 	private Date date;
 

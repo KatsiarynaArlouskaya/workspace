@@ -5,5 +5,7 @@ public enum CommandName {
     ADD_NEW_NOTE,
     SHOW_ALL_NOTES,
     SHOW_NOTE,
-    FIND_NOTE_BY_CONTENT
+    FIND_NOTE_BY_CONTENT,
+  //  SAVE_NOTEBOOK,
+  //  LOAD_NOTEBOOK
 }

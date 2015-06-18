@@ -15,7 +15,8 @@ public class main {
 	public static void main(String[] args) {
 		NoteBookController controller = new NoteBookController();
 		Request request = new Request();
-		Response response = controller.doCommand(CommandName.NEW_NOTEBOOK, request);
+		Response response;
+		/*response = controller.doCommand(CommandName.NEW_NOTEBOOK, request);
 		if (response.getStatus()==true){
 			System.out.println("Create notebook is OK");
 		}
@@ -24,9 +25,9 @@ public class main {
 		response = controller.doCommand(CommandName.ADD_NEW_NOTE, request);
 		if (response.getStatus()==true){
 			System.out.println("Add note is OK");
-		}
+		}*/
 		request = new Request();
-		request.setParam(RequestParam.CONTENT_FOR_NOTE, "second note");
+		request.setParam(RequestParam.CONTENT_FOR_NOTE, "third note");
 		response = controller.doCommand(CommandName.ADD_NEW_NOTE, request);
 		if (response.getStatus()==true){
 			System.out.println("Add note is OK");

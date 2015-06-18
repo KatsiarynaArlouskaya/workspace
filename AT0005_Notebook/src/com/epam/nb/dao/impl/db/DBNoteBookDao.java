@@ -2,6 +2,7 @@ package com.epam.nb.dao.impl.db;
 
 import com.epam.nb.dao.NoteBookDao;
 import com.epam.nb.entity.Note;
+import com.epam.nb.entity.NoteBook;
 
 public class DBNoteBookDao implements NoteBookDao {
 
@@ -29,10 +30,11 @@ public class DBNoteBookDao implements NoteBookDao {
 		
 	}
 
+
 	@Override
-	public int size() {
+	public NoteBook notebook() {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 
