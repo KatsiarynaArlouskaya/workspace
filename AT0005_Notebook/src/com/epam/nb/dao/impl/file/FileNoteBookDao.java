@@ -7,102 +7,81 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import com.epam.nb.dao.DAOException;
 import com.epam.nb.dao.NoteBookDao;
-import com.epam.nb.dao.impl.memory.MemoryNoteBookDao;
 import com.epam.nb.entity.Note;
 import com.epam.nb.entity.NoteBook;
 
 public class FileNoteBookDao implements NoteBookDao {
 	final static String PATH = "temp.out";
 
-	private void saveFile(NoteBook notebook) throws IOException {
-		FileOutputStream fos = new FileOutputStream(PATH);
-		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.writeObject(notebook);
-		oos.flush();
-		oos.close();
-		fos.close();
-	}
-
-	private NoteBook loadFile() throws IOException, ClassNotFoundException {
-		File file = new File(PATH);
-		if (file.exists()) {
-			FileInputStream fis = new FileInputStream(PATH);
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			NoteBook noteBook = (NoteBook) ois.readObject();
-			ois.close();
-			fis.close();
-			return noteBook;
-		}
-		return null;
-	}
-
-	public Note find(String contentSearch) {
+	private void saveFile(NoteBook notebook) throws DAOException {
 		try {
-			NoteBook noteBook = loadFile();
-			if (noteBook != null) {
-				for (int i = 0; i < noteBook.getSize(); i++) {
-					if (noteBook.getNote(i).getContent()
-							.contains(contentSearch)) {
-						return noteBook.getNote(i);
-					}
-				}
+			FileOutputStream fos = new FileOutputStream(PATH);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(notebook);
+			oos.flush();
+			oos.close();
+			fos.close();
+		} catch (IOException e) {
+			throw new DAOException("Fail save notebook to file", e);
+		}
+	}
+
+	private NoteBook loadFile() throws DAOException {
+		File file = new File(PATH);
+		NoteBook noteBook = new NoteBook();
+		try {
+			if (file.exists()) {
+				FileInputStream fis = new FileInputStream(PATH);
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				noteBook = (NoteBook) ois.readObject();
+				ois.close();
+				fis.close();
 			}
 		} catch (ClassNotFoundException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new DAOException("Fail load notebook from file", e);
+		}
+		return noteBook;
+	}
+
+	public Note find(String contentSearch) throws DAOException {
+		NoteBook noteBook = loadFile();
+		if (noteBook != null) {
+			for (int i = 0; i < noteBook.getSize(); i++) {
+				if (noteBook.getNote(i).getContent().contains(contentSearch)) {
+					return noteBook.getNote(i);
+				}
+			}
 		}
 		return null;
 	}
 
-	public Note find(int id) {
-		try {
-			NoteBook noteBook = loadFile();
-			return noteBook.getNote(id);
-		} catch (ClassNotFoundException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-
+	public Note find(int id) throws DAOException {
+		NoteBook noteBook = loadFile();
+		return noteBook.getNote(id);
 	}
 
-	public void add(Note note) {
-		try {
-			NoteBook noteBook = loadFile();
-			noteBook.addNewNote(note);
-			saveFile(noteBook);
-		} catch (ClassNotFoundException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void add(Note note) throws DAOException {
+		NoteBook noteBook = loadFile();
+		noteBook.addNewNote(note);
+		saveFile(noteBook);
 	}
 
 	@Override
-	public void create() {
+	public void create() throws DAOException {
 		File file = new File(PATH);
 		if (file.exists()) {
 			file.delete();
 		}
-		try {
-			NoteBook noteBook = new NoteBook();
-			saveFile(noteBook);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		NoteBook noteBook = new NoteBook();
+		saveFile(noteBook);
 	}
 
 	@Override
-	public NoteBook notebook() {
-		try {
-			NoteBook noteBook = loadFile();
-			return noteBook;
-		} catch (ClassNotFoundException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+	public NoteBook notebook() throws DAOException {
+		NoteBook noteBook = loadFile();
+		return noteBook;
 	}
 
 }
