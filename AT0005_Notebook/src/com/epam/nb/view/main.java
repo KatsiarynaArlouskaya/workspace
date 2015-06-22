@@ -38,7 +38,7 @@ public class main {
 			if (response.getStatus() == true) {
 				System.out.println("----------Showing note was completed");
 			}
-			request = new Request();
+			/*request = new Request();
 			request.setParam(RequestParam.CONTENT_FOR_NOTE, "second");
 			response = controller.doCommand(CommandName.FIND_NOTE_BY_CONTENT,
 					request);
@@ -50,7 +50,7 @@ public class main {
 				response = controller.doCommand(CommandName.SHOW_NOTE, request);
 			} else {
 				System.out.println("Note is not found ");
-			}
+			}*/
 		} catch (LogicException e) {
 			e.printStackTrace();
 		}
