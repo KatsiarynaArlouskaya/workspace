@@ -1,7 +1,5 @@
 package com.epam.nb.entity;
 
-import java.util.List;
-
 public class Response {
 	Note note;
 	int idNote;

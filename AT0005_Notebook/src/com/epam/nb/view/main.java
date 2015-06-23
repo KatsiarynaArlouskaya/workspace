@@ -15,10 +15,10 @@ public class main {
 		try {
 			Request request = new Request();
 			Response response;
-			response = controller.doCommand(CommandName.NEW_NOTEBOOK, request);
+		/*	response = controller.doCommand(CommandName.NEW_NOTEBOOK, request);
 			if (response.getStatus() == true) {
 				System.out.println("Create notebook is OK");
-			}
+			}*/
 			request = new Request();
 			request.setParam(RequestParam.CONTENT_FOR_NOTE, "first note");
 
