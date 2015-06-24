@@ -21,7 +21,7 @@ public class FindNoteByContentCommand implements Command {
 		try {
 			note = dao.find(contentSearch);
 		} catch (DAOException e) {
-			throw new LogicException(e.getMessage(), e);
+			throw new LogicException("DAO error", e);
 		}
 		Response response = new Response();
 		response.setNote(note);

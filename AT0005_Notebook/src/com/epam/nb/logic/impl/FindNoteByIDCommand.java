@@ -19,7 +19,7 @@ public class FindNoteByIDCommand implements Command {
 		try {
 			note = dao.find(id_note);
 		} catch (DAOException e) {
-			throw new LogicException(e.getMessage(), e);
+			throw new LogicException("DAO error", e);
 		}
 		Response response = new Response();
 		response.setNote(note);

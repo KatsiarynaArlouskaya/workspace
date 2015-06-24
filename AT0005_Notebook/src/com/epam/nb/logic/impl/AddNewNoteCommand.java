@@ -29,7 +29,7 @@ public class AddNewNoteCommand implements Command {
 		try {
 			dao.add(note);
 		} catch (DAOException e) {
-			throw new LogicException(e.getMessage(), e);
+			throw new LogicException("DAO error", e);
 		}
 		Response response = new Response();
 		response.setStatus(true);
