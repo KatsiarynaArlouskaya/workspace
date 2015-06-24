@@ -14,42 +14,64 @@ import com.epam.nb.entity.NoteBook;
 public class DBNoteBookDao implements NoteBookDao {
 
 	@Override
-	public Note find(String content) {
-		// TODO Auto-generated method stub
-		return null;
+	public Note find(String contentSearch) throws DAOException {
+		Connection con;
+		Note note;
+		try {
+			ConnectionPool connectionPool = DBProvider.getInstance().getConnectionPool();
+			con = connectionPool.takeConnection();
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("SELECT * FROM notepad WHERE content LIKE '%"+contentSearch+"%'");
+			if (rs.next()){
+				long date = rs.getLong("date");
+				String content = rs.getString("content");		
+				note = new Note(content, new Date(date));
+			}
+			else {
+				note =null;
+			}	
+			connectionPool.closeConnection(con, st, rs);
+		} catch (SQLException e) {
+			throw new DAOException("Fail to access to DB", e);
+		}
+		return note;
 	}
 
 	@Override
-	public Note find(int id) throws DAOException {
-		
+	public Note find(int idSearch) throws DAOException {	
+		Note note;
 		Connection con;
 		try {
-			con = DBProvider.getInstance().getConnectToDB();
+			idSearch++; //Id starts with 1 in DB, instead 0 in ArrayList.
+			ConnectionPool connectionPool = DBProvider.getInstance().getConnectionPool();
+			con = connectionPool.takeConnection();
 			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM notepad WHERE id=2");
-			int id_ = rs.getInt("id");
-			long date = rs.getLong("date");
-			String content = rs.getString("content");
-			System.out.println("ID = " + id_);
-			System.out.println("date = " + date);
-			System.out.println("content = " + content);
-			System.out.println();
-			System.out.println("Запись найдена");
-			return new Note(content, new Date(date));
-		} catch (ClassNotFoundException | SQLException e) {
+			ResultSet rs = st.executeQuery("SELECT * FROM notepad WHERE id="+idSearch);
+			if (rs.next()){
+				long date = rs.getLong("date");
+				String content = rs.getString("content");		
+				note = new Note(content, new Date(date));
+			}
+			else {
+				note =null;
+			}
+			connectionPool.closeConnection(con, st, rs);
+		} catch (SQLException e) {
 			throw new DAOException("Fail to access to DB", e);
 		}
+		return note;
 	}
 
 	@Override
 	public void add(Note note) throws DAOException {
+		Connection con;
 		try {
-			Connection con = DBProvider.getInstance().getConnectToDB();
+			ConnectionPool connectionPool = DBProvider.getInstance().getConnectionPool();
+			con = connectionPool.takeConnection();
 			Statement st = con.createStatement();
 			st.execute("INSERT INTO 'notepad' ('date', 'content') VALUES ("+note.getDate().getTime()+", '"+note.getContent()+"'); ");
-			st.close();
-			con.close();
-		} catch (ClassNotFoundException | SQLException e) {
+			connectionPool.closeConnection(con, st);
+		} catch (SQLException e) {
 			throw new DAOException("Fail to access to DB", e);
 		}
 
@@ -57,19 +79,19 @@ public class DBNoteBookDao implements NoteBookDao {
 
 	@Override
 	public void create() throws DAOException {
+		Connection con;
 		try {
-			Connection con = DBProvider.getInstance().getConnectToDB();
+			ConnectionPool connectionPool = DBProvider.getInstance().getConnectionPool();
+			con = connectionPool.takeConnection();
 			Statement st = con.createStatement();
 			st.execute("DROP TABLE 'notepad';");
 			st.execute("CREATE TABLE 'notepad' ('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'date' BIGINT, 'content' text);");
-			System.out.println("Таблица создана или уже существует.");
-			st.close();
-			con.close();
+			System.out.println("Таблица создана.");
+			connectionPool.closeConnection(con, st);
 
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			throw new DAOException("Fail to access to DB", e);
 		}
-
 	}
 
 	@Override
@@ -77,19 +99,20 @@ public class DBNoteBookDao implements NoteBookDao {
 		NoteBook notebook = new NoteBook();
 		Connection con;
 		try {
-			con = DBProvider.getInstance().getConnectToDB();
+			ConnectionPool connectionPool = DBProvider.getInstance().getConnectionPool();
+			con = connectionPool.takeConnection();
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM notepad");
 			while (rs.next()) {
-				int id = rs.getInt("id");
 				long date = rs.getLong("date");
 				String content = rs.getString("content");
 				notebook.addNewNote(content, new Date(date));
-			}
-			return notebook;
-		} catch (ClassNotFoundException | SQLException e) {
+			}	
+			connectionPool.closeConnection(con, st, rs);
+		} catch (SQLException e) {
 			throw new DAOException("Fail to access to DB", e);
 		}
+		return notebook;
 
 	}
 

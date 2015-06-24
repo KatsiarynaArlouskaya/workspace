@@ -15,7 +15,7 @@ public class main {
 		try {
 			Request request = new Request();
 			Response response;
-		/*	response = controller.doCommand(CommandName.NEW_NOTEBOOK, request);
+			/*	response = controller.doCommand(CommandName.NEW_NOTEBOOK, request);
 			if (response.getStatus() == true) {
 				System.out.println("Create notebook is OK");
 			}*/
@@ -27,7 +27,7 @@ public class main {
 				System.out.println("Add note is OK");
 			}
 			request = new Request();
-			request.setParam(RequestParam.CONTENT_FOR_NOTE, "third note");
+			request.setParam(RequestParam.CONTENT_FOR_NOTE, "second note");
 			response = controller.doCommand(CommandName.ADD_NEW_NOTE, request);
 			if (response.getStatus() == true) {
 				System.out.println("Add note is OK");
@@ -38,8 +38,8 @@ public class main {
 			if (response.getStatus() == true) {
 				System.out.println("----------Showing note was completed");
 			}
-			/*request = new Request();
-			request.setParam(RequestParam.CONTENT_FOR_NOTE, "second");
+			request = new Request();
+			request.setParam(RequestParam.CONTENT_FOR_NOTE, "econd");
 			response = controller.doCommand(CommandName.FIND_NOTE_BY_CONTENT,
 					request);
 			if (response.getStatus() == true) {
@@ -50,7 +50,7 @@ public class main {
 				response = controller.doCommand(CommandName.SHOW_NOTE, request);
 			} else {
 				System.out.println("Note is not found ");
-			}*/
+			}
 		} catch (LogicException e) {
 			e.printStackTrace();
 		}
