@@ -20,47 +20,21 @@ public class main {
 	public static void main(String[] args) {
 		logger.info("Start programm");
 		NoteBookController controller = new NoteBookController();
-		try {
+	/*	try {
 			Request request = new Request();
 			Response response;
 			response = controller.doCommand(CommandName.NEW_NOTEBOOK, request);
 			if (response.getStatus() == true) {
 				logger.info("Create notebook is OK");
-			}
-			request = new Request();
-			request.setParam(RequestParam.CONTENT_FOR_NOTE, "first note");
-
-			response = controller.doCommand(CommandName.ADD_NEW_NOTE, request);
-			if (response.getStatus() == true) {
-				logger.info("Add note is OK");
-			}
-			request = new Request();
-			request.setParam(RequestParam.CONTENT_FOR_NOTE, "second note");
-			response = controller.doCommand(CommandName.ADD_NEW_NOTE, request);
-			if (response.getStatus() == true) {
-				logger.info("Add note is OK");
-			}
-			response = controller
-					.doCommand(CommandName.SHOW_ALL_NOTES, request);
-			if (response.getStatus() == true) {
-				logger.info("Show all notes is OK");
-			}
-			request = new Request();
-			request.setParam(RequestParam.CONTENT_FOR_NOTE, "econd");
-			response = controller.doCommand(CommandName.FIND_NOTE_BY_CONTENT,
-					request);
-			if (response.getStatus() == true) {
-				logger.info("Found note is OK");
-				Note note = response.getNote();
-				request = new Request();
-				request.setParam(RequestParam.NOTE, note);
-				response = controller.doCommand(CommandName.SHOW_NOTE, request);
-			} else {
-				logger.info("Note is not found ");
-			}
+			}			
 		} catch (LogicException e) {
 			e.printStackTrace();
-		}
+		}*/
+		Customer1 customer1 = new Customer1();
+	//	Customer2 customer2 = new Customer2();
+		customer1.run();
+	//	customer2.run();
+
 	}
 
 }

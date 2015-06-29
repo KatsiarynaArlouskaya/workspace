@@ -1,12 +1,18 @@
 # Directories #
 .metadata
 .recommenders
-/build/
-/bin/
-/test-output/
+build/
+bin/
+test-output/
 target/
+log/
+lib/
 
  
 *.class
 *.log
 *.s3db
+.classpath
+.project
+.settings/
+*.out

@@ -3,16 +3,11 @@ package com.epam.nb.dao.impl.db;
 import com.epam.nb.dao.DAOException;
 
 public class DBProvider {
-
+/*
     private static final DBProvider dbProvider = new DBProvider();
     private ConnectionPool connectionPool = new ConnectionPool();
     
     private DBProvider() {
-			try {
-				connectionPool.initPoolData();
-			} catch (DAOException e) {
-				e.printStackTrace();
-			}
 	}
     
     public static DBProvider getInstance(){
@@ -21,7 +16,7 @@ public class DBProvider {
     
     public ConnectionPool getConnectionPool(){
         return connectionPool;
-    }
+    }*/
     
     /*    public static DBProvider getInstance(){
         return dbProvider;
