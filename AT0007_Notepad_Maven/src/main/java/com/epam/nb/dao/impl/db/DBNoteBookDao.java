@@ -1,7 +1,6 @@
 package com.epam.nb.dao.impl.db;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -81,21 +80,17 @@ public class DBNoteBookDao implements NoteBookDao {
 	@Override
 	public void create() throws DAOException {
 		Connection con;
-		final String driverName = "org.sqlite.JDBC";
-		final String url = "jdbc:sqlite:TEST1.s3db";
 		try {
-			Class.forName(driverName);
-			con =  DriverManager.getConnection(url);
+			ConnectionPool connectionPool = DBProvider.getInstance().getConnectionPool();
+			con = connectionPool.takeConnection();
 			Statement st = con.createStatement();
-			st.execute("DROP TABLE 'notepad';");
+			st.execute("DROP TABLE IF EXISTS 'notepad';");
 			st.execute("CREATE TABLE 'notepad' ('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'date' BIGINT, 'content' text);");
-			System.out.println("Notebook created");
-			con.close();
-			st.close();
+			System.out.println("Таблица создана.");
+			connectionPool.closeConnection(con, st);
+
 		} catch (SQLException e) {
-			throw new DAOException("Fail to create to DB", e);
-		} catch (ClassNotFoundException e) {
-			throw new DAOException("Can't find database driver class", e);
+			throw new DAOException("Fail to access to DB", e);
 		}
 	}
 
