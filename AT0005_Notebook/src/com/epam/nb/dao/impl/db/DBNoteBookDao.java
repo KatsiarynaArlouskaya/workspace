@@ -84,7 +84,7 @@ public class DBNoteBookDao implements NoteBookDao {
 			ConnectionPool connectionPool = DBProvider.getInstance().getConnectionPool();
 			con = connectionPool.takeConnection();
 			Statement st = con.createStatement();
-			st.execute("DROP TABLE 'notepad';");
+			st.execute("DROP TABLE IF EXISTS 'notepad';");
 			st.execute("CREATE TABLE 'notepad' ('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'date' BIGINT, 'content' text);");
 			System.out.println("Таблица создана.");
 			connectionPool.closeConnection(con, st);

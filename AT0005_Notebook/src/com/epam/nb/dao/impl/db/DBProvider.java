@@ -1,21 +1,19 @@
 package com.epam.nb.dao.impl.db;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import com.epam.nb.dao.impl.memory.NoteBookProvider;
-import com.epam.nb.entity.NoteBook;
-
+import com.epam.nb.dao.DAOException;
 
 public class DBProvider {
 
     private static final DBProvider dbProvider = new DBProvider();
     private ConnectionPool connectionPool = new ConnectionPool();
     
+    private DBProvider() {
+			try {
+				connectionPool.initPoolData();
+			} catch (DAOException e) {
+				e.printStackTrace();
+			}
+	}
     
     public static DBProvider getInstance(){
         return dbProvider;

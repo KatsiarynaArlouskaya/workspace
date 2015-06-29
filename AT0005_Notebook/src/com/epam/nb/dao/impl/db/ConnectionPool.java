@@ -37,6 +37,7 @@ public final class ConnectionPool {
 	public void initPoolData() throws DAOException {
 		try {
 			Class.forName(driverName);
+			System.out.println("очередь создана");
 			givenAwayConQueue = new ArrayBlockingQueue<Connection>(poolSize);
 			connectionQueue = new ArrayBlockingQueue<Connection>(poolSize);
 			for (int i = 0; i < poolSize; i++) {
@@ -67,6 +68,7 @@ public final class ConnectionPool {
 		try {
 			connection = connectionQueue.take();
 			givenAwayConQueue.offer(connection);
+			System.out.println("выделен поток");
 		} catch (InterruptedException e) {
 			throw new DAOException("Erroe connection to the data source.", e);
 		}
