@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.epam.com/Noutbook"
+	xmlns:tns="http://www.epam.com/Noutbook">
+	<element name="notes">
+		<complexType>
+			<sequence>
+				<element name="note" type="tns:Note"
+				minOccurs="0" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	</element>
+	
+	<complexType name="Note">
+		<sequence>
+			<element name="date" type="long"></element>
+			<element name="content" type="string"></element>
+		</sequence>
+		<attribute name="id" type="int" use="required"></attribute>
+	</complexType>
+	
+</schema>

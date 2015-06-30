@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:notes xmlns:tns="http://www.epam.com/Noutbook" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.epam.com/Noutbook NotebookXMLSchema.xsd ">
+	<note id="0">
+		<date>100000</date>
+		<content>Note one</content>
+	</note>
+	<note id="1">
+		<date>200000</date>
+		<content>Note two</content>
+	</note>
+	<note id="2">
+		<date>300000</date>
+		<content>Note three</content>
+	</note>
+	<note id="3">
+		<date>400000</date>
+		<content>Note four</content>
+	</note>
+
+
+</tns:notes>
