@@ -32,9 +32,8 @@ public class XMLNoteBookDao implements NoteBookDao {
 
 
 	@Override
-	public NoteBook notebook() {
-		// TODO Auto-generated method stub
-		return null;
+	public NoteBook notebook() {		
+		return ParserFactory.getInstance().getParser().getNotebook();
 	}
 
 
