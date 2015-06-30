@@ -23,41 +23,17 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.epam.nb.dao.DAOException;
-import com.epam.nb.view.main;
 
 public final class ConnectionPool {
 
 	private BlockingQueue<Connection> connectionQueue;
 	private BlockingQueue<Connection> givenAwayConQueue;
 
-	private String driverName;
-	private String url;
-	private int poolSize;
-	private static final Logger logger = LogManager.getLogger(main.class
-			.getName());
+	private String driverName = "org.sqlite.JDBC";
+	private String url = "jdbc:sqlite:TEST1.s3db";
+	private int poolSize = 5;
 
-	private static final ConnectionPool connectionPool = new ConnectionPool();
-	
-	public static ConnectionPool getInstance() {
-		return connectionPool;		
-	}
-	
-	private ConnectionPool()  {
-		this.driverName = "org.sqlite.JDBC";
-		this.url = "jdbc:sqlite:TEST1.s3db";
-		this.poolSize = 5;
-		try {
-			this.initPoolData();
-		} catch (DAOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 	public void initPoolData() throws DAOException {
 		try {
 			Class.forName(driverName);
@@ -69,7 +45,6 @@ public final class ConnectionPool {
 						connection);
 				connectionQueue.add(pooledConnection);
 			}
-			logger.info("create queue");
 
 		} catch (SQLException e) {
 			throw new DAOException("SQLException in Connection Pool", e);
@@ -92,8 +67,6 @@ public final class ConnectionPool {
 		try {
 			connection = connectionQueue.take();
 			givenAwayConQueue.offer(connection);
-			logger.info("connectionQueue.size "+connectionQueue.size());
-			logger.info("connectionQueue.remainingCapacity "+connectionQueue.remainingCapacity());
 		} catch (InterruptedException e) {
 			throw new DAOException("Erroe connection to the data source.", e);
 		}

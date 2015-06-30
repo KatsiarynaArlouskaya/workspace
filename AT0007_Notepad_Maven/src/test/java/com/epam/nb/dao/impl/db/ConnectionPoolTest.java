@@ -12,7 +12,7 @@ public class ConnectionPoolTest {
   @Test
   public void takeConnection() {
 	  Connection con1, con2, con3, con4, con5, con6;
-	  ConnectionPool connectionPool = ConnectionPool.getInstance();
+	  ConnectionPool connectionPool = ConnectionPoolProvider.getInstance().getConnectionPool();
 		try {
 			con1 = connectionPool.takeConnection();
 			con2 = connectionPool.takeConnection();

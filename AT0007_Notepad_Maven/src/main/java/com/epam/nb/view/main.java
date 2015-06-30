@@ -31,9 +31,9 @@ public class main {
 			e.printStackTrace();
 		}*/
 		Customer1 customer1 = new Customer1();
-	//	Customer2 customer2 = new Customer2();
+		Customer2 customer2 = new Customer2();
 		customer1.run();
-	//	customer2.run();
+		customer2.run();
 
 	}
 

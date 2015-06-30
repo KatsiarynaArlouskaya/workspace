@@ -18,7 +18,7 @@ public class DBNoteBookDao implements NoteBookDao {
 		Connection con;
 		Note note;
 		try {
-			ConnectionPool connectionPool = ConnectionPool.getInstance();
+			ConnectionPool connectionPool = ConnectionPoolProvider.getInstance().getConnectionPool();
 			con = connectionPool.takeConnection();
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM notepad WHERE content LIKE '%"+contentSearch+"%'");
@@ -43,7 +43,7 @@ public class DBNoteBookDao implements NoteBookDao {
 		Connection con;
 		try {
 			idSearch++; //Id starts with 1 in DB, instead 0 in ArrayList.
-			ConnectionPool connectionPool = ConnectionPool.getInstance();
+			ConnectionPool connectionPool = ConnectionPoolProvider.getInstance().getConnectionPool();
 			con = connectionPool.takeConnection();
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM notepad WHERE id="+idSearch);
@@ -66,7 +66,7 @@ public class DBNoteBookDao implements NoteBookDao {
 	public void add(Note note) throws DAOException {
 		Connection con;
 		try {
-			ConnectionPool connectionPool = ConnectionPool.getInstance();
+			ConnectionPool connectionPool = ConnectionPoolProvider.getInstance().getConnectionPool();
 			con = connectionPool.takeConnection();
 			Statement st = con.createStatement();
 			st.execute("INSERT INTO 'notepad' ('date', 'content') VALUES ("+note.getDate().getTime()+", '"+note.getContent()+"'); ");
@@ -81,13 +81,13 @@ public class DBNoteBookDao implements NoteBookDao {
 	public void create() throws DAOException {
 		Connection con;
 		try {
-			ConnectionPool connectionPool = ConnectionPool.getInstance();
+			ConnectionPool connectionPool = ConnectionPoolProvider.getInstance().getConnectionPool();
 			con = connectionPool.takeConnection();
 			Statement st = con.createStatement();
 			st.execute("DROP TABLE IF EXISTS 'notepad';");
 			st.execute("CREATE TABLE 'notepad' ('id' INTEGER PRIMARY KEY AUTOINCREMENT, 'date' BIGINT, 'content' text);");
-			System.out.println("Таблица создана.");
 			connectionPool.closeConnection(con, st);
+
 		} catch (SQLException e) {
 			throw new DAOException("Fail to access to DB", e);
 		}
@@ -98,7 +98,7 @@ public class DBNoteBookDao implements NoteBookDao {
 		NoteBook notebook = new NoteBook();
 		Connection con;
 		try {
-			ConnectionPool connectionPool = ConnectionPool.getInstance();
+			ConnectionPool connectionPool = ConnectionPoolProvider.getInstance().getConnectionPool();
 			con = connectionPool.takeConnection();
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery("SELECT * FROM notepad");
