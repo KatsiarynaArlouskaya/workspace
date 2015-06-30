@@ -12,16 +12,21 @@ import com.epam.nb.entity.Note;
 import com.epam.nb.entity.NoteBook;
 
 public class DBNoteBookDao implements NoteBookDao {
+	private String ID_COLUMN = "id";
+	private String DATE_COLUMN = "date";
+	private String CONTENT_COLUMN = "content";
+	private String TABLE_NAME = "notepad";
 
 	@Override
 	public Note find(String contentSearch) throws DAOException {
 		Connection con;
 		Note note;
+		String sqlRequest = "SELECT * FROM notepad WHERE content LIKE '%";
 		try {
 			ConnectionPool connectionPool = ConnectionPoolProvider.getInstance().getConnectionPool();
 			con = connectionPool.takeConnection();
 			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM notepad WHERE content LIKE '%"+contentSearch+"%'");
+			ResultSet rs = st.executeQuery(sqlRequest+contentSearch+"%'");
 			if (rs.next()){
 				long date = rs.getLong("date");
 				String content = rs.getString("content");		

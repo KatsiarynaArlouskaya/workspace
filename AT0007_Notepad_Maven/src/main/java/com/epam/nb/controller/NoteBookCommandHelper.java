@@ -12,7 +12,7 @@ import com.epam.nb.logic.impl.ShowAllNotesCommand;
 import com.epam.nb.logic.impl.ShowNoteCommand;
 
 public class NoteBookCommandHelper {
-	Map<CommandName, Command>commands = new HashMap<>();
+	private Map<CommandName, Command>commands = new HashMap<>();
 	
 	public NoteBookCommandHelper() {
 		commands.put(CommandName.ADD_NEW_NOTE, new AddNewNoteCommand());

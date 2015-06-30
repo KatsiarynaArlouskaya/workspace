@@ -13,31 +13,26 @@ import com.epam.nb.entity.Note;
 import com.epam.nb.entity.NoteBook;
 
 public class FileNoteBookDao implements NoteBookDao {
-	final static String PATH = "temp.out";
+	private final static String PATH = "temp.out";
 
 	private void saveFile(NoteBook notebook) throws DAOException {
-		try {
-			FileOutputStream fos = new FileOutputStream(PATH);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
+		try (FileOutputStream fos = new FileOutputStream(PATH);
+				ObjectOutputStream oos = new ObjectOutputStream(fos);) {
 			oos.writeObject(notebook);
 			oos.flush();
-			oos.close();
-			fos.close();
 		} catch (IOException e) {
 			throw new DAOException("Fail save notebook to file", e);
 		}
+
 	}
 
 	private NoteBook loadFile() throws DAOException {
 		File file = new File(PATH);
 		NoteBook noteBook = new NoteBook();
-		try {
+		try (FileInputStream fis = new FileInputStream(PATH);
+				ObjectInputStream ois = new ObjectInputStream(fis);) {
 			if (file.exists()) {
-				FileInputStream fis = new FileInputStream(PATH);
-				ObjectInputStream ois = new ObjectInputStream(fis);
 				noteBook = (NoteBook) ois.readObject();
-				ois.close();
-				fis.close();
 			}
 		} catch (ClassNotFoundException | IOException e) {
 			throw new DAOException("Fail load notebook from file", e);

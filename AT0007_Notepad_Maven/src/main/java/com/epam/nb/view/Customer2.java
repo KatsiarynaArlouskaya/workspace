@@ -11,7 +11,7 @@ import com.epam.nb.entity.RequestParam;
 import com.epam.nb.entity.Response;
 import com.epam.nb.logic.LogicException;
 
-public class Customer2 extends Thread{
+public class Customer2 extends Thread {
 
 	private static final Logger logger = LogManager.getLogger(main.class
 			.getName());
@@ -25,41 +25,29 @@ public class Customer2 extends Thread{
 		request = new Request();
 		request.setParam(RequestParam.CONTENT_FOR_NOTE, "thirty");
 
-
-			try {
-				response = controller.doCommand(CommandName.ADD_NEW_NOTE, request);
-				if (response.getStatus() == true) {
-					logger.info("2Add note is OK");
-				}
-			} catch (LogicException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+		response = controller.doCommand(CommandName.ADD_NEW_NOTE, request);
+		if (response.getStatus() == true) {
+			logger.info("2Add note is OK");
+		}
 
 		request = new Request();
 		request.setParam(RequestParam.CONTENT_FOR_NOTE, "fourty note");
-		try {
-			response = controller.doCommand(CommandName.ADD_NEW_NOTE, request);
-			if (response.getStatus() == true) {
-				logger.info("2Add note is OK");
-				response = controller
-						.doCommand(CommandName.SHOW_ALL_NOTES, request);
-				if (response.getStatus() == true) {
-					logger.info("2Show all notes is OK");
-				}
-			}
-		} catch (LogicException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
+		response = controller.doCommand(CommandName.ADD_NEW_NOTE, request);
+		if (response.getStatus() == true) {
+			logger.info("2Add note is OK");
+			response = controller
+					.doCommand(CommandName.SHOW_ALL_NOTES, request);
+			if (response.getStatus() == true) {
+				logger.info("2Show all notes is OK");
+			}
+		}
 
 		request = new Request();
 		request.setParam(RequestParam.CONTENT_FOR_NOTE, "econd");
-		try {
-			response = controller.doCommand(CommandName.FIND_NOTE_BY_CONTENT,
-					request);
+
+		response = controller.doCommand(CommandName.FIND_NOTE_BY_CONTENT,
+				request);
 
 		if (response.getStatus() == true) {
 			logger.info("2Found note is OK");
@@ -70,11 +58,6 @@ public class Customer2 extends Thread{
 		} else {
 			logger.info("2Note is not found ");
 		}
-		} catch (LogicException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 	}
 
 }
