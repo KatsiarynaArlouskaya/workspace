@@ -35,7 +35,7 @@ public class NotebookSaxHandler extends DefaultHandler{
 	}
 	
 	public void endElement(String uri, String localName, String qName) {
-		XMLTags tagName = XMLTags.valueOf(qName.toUpperCase().replace(":", "_"));
+		XMLTags tagName = XMLTags.valueOf(localName.toUpperCase());
 		switch (tagName) {
 		case DATE:
 			note.setDate(new Date(Long.valueOf(text.toString())));

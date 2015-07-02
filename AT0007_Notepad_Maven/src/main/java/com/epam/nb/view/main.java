@@ -1,5 +1,7 @@
 package com.epam.nb.view;
 
+import java.util.Scanner;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,6 +19,10 @@ public class main {
 
 	public static void main(String[] args) {
 		logger.info("Start programm");
+		System.out.println("Set locale: en, fr, ru");
+		Scanner sc = new Scanner(System.in);
+		String country = sc.next();
+		LocaleNotebook.getInstance().setLocale(country);
 		NoteBookController controller = new NoteBookController();
 		Request request = new Request();
 		Response response;
