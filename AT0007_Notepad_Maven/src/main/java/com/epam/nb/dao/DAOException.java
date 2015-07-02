@@ -11,6 +11,6 @@ public class DAOException extends Exception{
 		super(messString);
 	}
 	public DAOException(String messString, Exception e) {
-		super(messString, e);
+		super(messString+ "/n"+e.toString(), e);
 	}
 }

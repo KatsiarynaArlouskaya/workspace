@@ -39,15 +39,16 @@ public class Customer1 extends Thread {
 		response = controller.doCommand(CommandName.ADD_NEW_NOTE, request);
 		if (response.getStatus() == true) {
 			logger.info("1Add note is OK");
-			response = controller.doCommand(CommandName.SHOW_ALL_NOTES, request);
-			if (response.getStatus() == true) {
-				logger.info("1Show all notes is OK");
-			}
+		}
+		response = controller.doCommand(CommandName.SHOW_ALL_NOTES, request);
+		if (response.getStatus() == true) {
+			logger.info("1Show all notes is OK");
 		}
 
 		request = new Request();
 		request.setParam(RequestParam.CONTENT_FOR_NOTE, "econd");
-		response = controller.doCommand(CommandName.FIND_NOTE_BY_CONTENT,request);
+		response = controller.doCommand(CommandName.FIND_NOTE_BY_CONTENT,
+				request);
 
 		if (response.getStatus() == true) {
 			logger.info("1Found note is OK");

@@ -1,10 +1,12 @@
 package com.epam.nb.dao.impl.xml;
 
+import com.epam.nb.dao.DAOException;
 import com.epam.nb.dao.NoteBookDao;
 import com.epam.nb.entity.Note;
 import com.epam.nb.entity.NoteBook;
 
 public class XMLNoteBookDao implements NoteBookDao {
+	private final static String pathXML = "Notebook.xml";
 
 	@Override
 	public Note find(String content) {
@@ -32,8 +34,8 @@ public class XMLNoteBookDao implements NoteBookDao {
 
 
 	@Override
-	public NoteBook notebook() {		
-		return ParserFactory.getInstance().getParser().getNotebook();
+	public NoteBook notebook() throws DAOException {		
+		return ParserFactory.getInstance().getParser().getNotebook(pathXML);
 	}
 
 

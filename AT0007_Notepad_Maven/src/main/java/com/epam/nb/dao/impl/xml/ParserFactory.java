@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import com.epam.nb.dao.impl.xml.impl.DOMParser;
-import com.epam.nb.dao.impl.xml.impl.SAXParser;
-import com.epam.nb.dao.impl.xml.impl.StAXParser;
+import com.epam.nb.dao.impl.xml.implDOM.DOMParser;
+import com.epam.nb.dao.impl.xml.implSAX.SAXParser;
+import com.epam.nb.dao.impl.xml.implStAX.StAXParser;
 
 public class ParserFactory {
 	private static final ParserFactory parserFactory = new ParserFactory();

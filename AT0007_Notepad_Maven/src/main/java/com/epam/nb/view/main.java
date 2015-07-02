@@ -20,14 +20,18 @@ public class main {
 		NoteBookController controller = new NoteBookController();
 		Request request = new Request();
 		Response response;
-		response = controller.doCommand(CommandName.NEW_NOTEBOOK, request);
+		/*response = controller.doCommand(CommandName.NEW_NOTEBOOK, request);
 		if (response.getStatus() == true) {
 			logger.info("Create notebook is OK");
 		}
 		Customer1 customer1 = new Customer1();
 		Customer2 customer2 = new Customer2();
 		customer1.run();
-		customer2.run();
+		customer2.run();*/
+		response = controller.doCommand(CommandName.SHOW_ALL_NOTES, request);
+		if (response.getStatus() == true) {
+			logger.info("1Show all notes is OK");
+		}
 
 	}
 

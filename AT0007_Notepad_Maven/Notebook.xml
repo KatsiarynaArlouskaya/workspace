@@ -3,20 +3,20 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://www.epam.com/Noutbook NotebookXMLSchema.xsd ">
 	<note id="0">
-		<date>100000</date>
-		<content>Note one</content>
+		<date>400000000000</date>
+		<content>St Note one</content>
 	</note>
 	<note id="1">
-		<date>200000</date>
-		<content>Note two</content>
+		<date>401000000000</date>
+		<content>St Note two</content>
 	</note>
 	<note id="2">
-		<date>300000</date>
-		<content>Note three</content>
+		<date>402000000000</date>
+		<content>St Note three</content>
 	</note>
 	<note id="3">
-		<date>400000</date>
-		<content>Note four</content>
+		<date>403000000000</date>
+		<content>St Note four</content>
 	</note>
 
 

@@ -5,6 +5,6 @@ public class LogicException extends Exception {
 		super(messString);
 	}
 	public LogicException(String messString, Exception e) {
-		super(messString, e);
+		super(messString+"  "+e.toString(), e);
 	}
 }

@@ -1,4 +1,6 @@
-package com.epam.nb.dao.impl.xml.impl;
+package com.epam.nb.dao.impl.xml.implSAX;
+
+import java.util.Date;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
@@ -32,7 +34,19 @@ public class NotebookSaxHandler extends DefaultHandler{
 		text.append(buffer, start, length);
 	}
 	
-	public void endElement(String uri, String qName) {
-		//TO DO 
+	public void endElement(String uri, String localName, String qName) {
+		XMLTags tagName = XMLTags.valueOf(qName.toUpperCase().replace(":", "_"));
+		switch (tagName) {
+		case DATE:
+			note.setDate(new Date(Long.valueOf(text.toString())));
+			break;
+		case CONTENT:
+			note.setContent(text.toString());
+			break;
+		case NOTE:
+			notebook.addNewNote(note);
+			note=null;
+			break;
+		}
 	}
 }
