@@ -36,7 +36,7 @@ public class main {
 		customer2.run();*/
 		response = controller.doCommand(CommandName.SHOW_ALL_NOTES, request);
 		if (response.getStatus() == true) {
-			logger.info("1Show all notes is OK");
+			logger.info("Show all notes is OK");
 		}
 
 	}

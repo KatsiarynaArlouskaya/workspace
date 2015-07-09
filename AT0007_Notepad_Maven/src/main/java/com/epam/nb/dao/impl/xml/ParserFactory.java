@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import com.epam.nb.dao.impl.xml.implDOM.DOMParser;
+import com.epam.nb.dao.impl.xml.implDOM.MyDOMParser;
 import com.epam.nb.dao.impl.xml.implSAX.SAXParser;
 import com.epam.nb.dao.impl.xml.implStAX.StAXParser;
 
@@ -25,7 +25,7 @@ public class ParserFactory {
 		parserType = ParserType.valueOf(source);
 		parser.put(ParserType.SAX, new SAXParser());
 		parser.put(ParserType.StAX, new StAXParser());
-		parser.put(ParserType.DOM, new DOMParser());	
+		parser.put(ParserType.DOM, new MyDOMParser());	
 	}
 
 	public XMLParser getParser() {

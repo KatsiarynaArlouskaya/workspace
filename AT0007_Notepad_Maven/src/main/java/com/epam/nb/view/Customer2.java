@@ -18,7 +18,7 @@ public class Customer2 extends Thread {
 
 	@Override
 	public void run() {
-		logger.info("2Start thread");
+		logger.info("Start thread");
 		NoteBookController controller = new NoteBookController();
 		Request request = new Request();
 		Response response;
@@ -27,7 +27,7 @@ public class Customer2 extends Thread {
 
 		response = controller.doCommand(CommandName.ADD_NEW_NOTE, request);
 		if (response.getStatus() == true) {
-			logger.info("2Add note is OK");
+			logger.info("Add note is OK");
 		}
 
 		request = new Request();
@@ -35,11 +35,11 @@ public class Customer2 extends Thread {
 
 		response = controller.doCommand(CommandName.ADD_NEW_NOTE, request);
 		if (response.getStatus() == true) {
-			logger.info("2Add note is OK");
+			logger.info("Add note is OK");
 			response = controller
 					.doCommand(CommandName.SHOW_ALL_NOTES, request);
 			if (response.getStatus() == true) {
-				logger.info("2Show all notes is OK");
+				logger.info("Show all notes is OK");
 			}
 		}
 
@@ -50,13 +50,13 @@ public class Customer2 extends Thread {
 				request);
 
 		if (response.getStatus() == true) {
-			logger.info("2Found note is OK");
+			logger.info("Found note is OK");
 			Note note = response.getNote();
 			request = new Request();
 			request.setParam(RequestParam.NOTE, note);
 			response = controller.doCommand(CommandName.SHOW_NOTE, request);
 		} else {
-			logger.info("2Note is not found ");
+			logger.info("Note is not found ");
 		}
 	}
 

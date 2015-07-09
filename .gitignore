@@ -7,6 +7,7 @@ test-output/
 target/
 log/
 lib/
+AT0008_FrameworkExample/
 
  
 *.class

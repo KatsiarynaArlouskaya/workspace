@@ -8,23 +8,23 @@ import com.epam.nb.entity.Note;
 import com.epam.nb.entity.NoteBook;
 
 public class NoteBookConsoleView {
-	DateFormat formatter = DateFormat.getDateInstance(DateFormat.SHORT, LocaleNotebook.getInstance().getLocale());
+	DateFormat formatDate = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.DEFAULT,LocaleNotebook.getInstance().getLocale());
 
 	public void print(Note note) {
-		System.out.print(formatter.format(note.getDate()));
+		System.out.print(formatDate.format(note.getDate()));
 		System.out.println("  " + note.getContent());
 	}
 
 	public void print(List<Note> notes) {
 		for (Note note : notes) {
-			System.out.print(formatter.format(note.getDate()));
+			System.out.print(formatDate.format(note.getDate()));
 			System.out.println("  " + note.getContent());
 		}
 	}
 
 	public void print(Note... notes) {
 		for (Note note : notes) {
-			System.out.print(formatter.format(note.getDate()));
+			System.out.print(formatDate.format(note.getDate()));
 			System.out.println("  " + note.getContent());
 		}
 	}
@@ -33,7 +33,7 @@ public class NoteBookConsoleView {
 		if (noteBook != null) {
 			if (noteBook.getSize() != 0) {
 				for (int i = 0; i < noteBook.getSize(); i++) {
-					System.out.print(formatter.format(noteBook.getNote(i)
+					System.out.print(formatDate.format(noteBook.getNote(i)
 							.getDate()));
 					System.out.println("  " + noteBook.getNote(i).getContent());
 				}

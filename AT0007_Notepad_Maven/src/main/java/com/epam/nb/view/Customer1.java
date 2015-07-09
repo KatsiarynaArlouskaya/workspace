@@ -18,7 +18,7 @@ public class Customer1 extends Thread {
 
 	@Override
 	public void run() {
-		logger.info("1Start thread");
+		logger.info("Start thread");
 		NoteBookController controller = new NoteBookController();
 		Request request = new Request();
 		Response response;
@@ -27,7 +27,7 @@ public class Customer1 extends Thread {
 
 		response = controller.doCommand(CommandName.ADD_NEW_NOTE, request);
 		if (response.getStatus() == true) {
-			logger.info("1Add note is OK");
+			logger.info("Add note is OK");
 		}
 		/*
 		 * logger.info("1sleep"); try { sleep(5000); } catch
@@ -38,7 +38,7 @@ public class Customer1 extends Thread {
 		request.setParam(RequestParam.CONTENT_FOR_NOTE, "second note");
 		response = controller.doCommand(CommandName.ADD_NEW_NOTE, request);
 		if (response.getStatus() == true) {
-			logger.info("1Add note is OK");
+			logger.info("Add note is OK");
 		}
 		response = controller.doCommand(CommandName.SHOW_ALL_NOTES, request);
 		if (response.getStatus() == true) {
