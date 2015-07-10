@@ -25,8 +25,11 @@ public class GmailTest {
   
   @Test
   public void f() {	  
-	  Assert.assertTrue(steps.signIn(USER1, PASSWORD));
-	  Assert.assertTrue(steps.sendMsg(USER2, MSG));
+	  steps.signIn(USER3, PASSWORD);
+	  steps.sendMsg(USER2, MSG);
+	  steps.signOut();
+	  steps.signIn(USER2, PASSWORD);
+	  steps.markLetterAsSpam(USER3);
   }
 
   @AfterMethod(description = "Stop Browser")

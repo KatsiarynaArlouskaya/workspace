@@ -9,13 +9,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import com.epam.arlouskaya.gmail.steps.Steps;
 
 public class StartPage extends AbstractPage{
 	
 	private static final Logger logger = LogManager.getLogger(StartPage.class.getName());
-	private final String BASE_URL = "https://gmail.com/";
+	public static final String BASE_URL = "https://gmail.com/";
 	private final String ACCOUNT_RECOVERY_PROMT = "AccountRecoveryOptionsPrompt";
 	private final String CHECKED = "checked";
 
@@ -43,7 +44,16 @@ public class StartPage extends AbstractPage{
 	}
 
 	public boolean signIn(String username, String password) {
-		inputEmail.sendKeys(username);
+		try {
+			inputEmail.sendKeys(username);
+		} catch (org.openqa.selenium.UnhandledAlertException e) {
+			if (ExpectedConditions.alertIsPresent().apply(driver) != null){
+			logger.info("Allert was accept. Allert:" + driver.switchTo().alert().getText());
+			driver.switchTo().alert().accept();
+			inputEmail.sendKeys(username);	
+			}
+		}
+		
 		btnNext.click();
 		if (chbxCookies.getAttribute(CHECKED)!=null){
 			chbxCookies.click();

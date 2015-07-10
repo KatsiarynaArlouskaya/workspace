@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.epam.arlouskaya.gmail.pages.InboxPage;
+import com.epam.arlouskaya.gmail.pages.MessagePage;
 import com.epam.arlouskaya.gmail.pages.StartPage;
 
 
@@ -17,6 +18,7 @@ public class Steps {
 	private WebDriver driver=null;
 	private static final Logger logger = LogManager.getLogger(Steps.class
 			.getName());
+	
 	
 	public void initBrowser() {
 		driver = new FirefoxDriver();
@@ -34,19 +36,26 @@ public class Steps {
 		StartPage startPage = new StartPage(driver);
 		startPage.openPage();
 		return startPage.signIn(username, password);	
-	}
+	}	
 	
-
-	
-	public void signOutUser(String Username, String Password) {
-		
-		
-	}
-
-	public boolean sendMsg(String user2, String msg) {
+	public boolean  signOut() {
 		InboxPage inboxPage = new InboxPage(driver);
-		inboxPage.createNewMsg(user2, msg);
+		inboxPage.signOut();
 		return true;
+	}
+
+	public boolean sendMsg(String user, String msg) {	
+		InboxPage inboxPage = new InboxPage(driver);
+		inboxPage.createNewMsg(user, msg);
+		logger.info("Send msg is Ok");
+		return true;
+	}
+	
+	public void markLetterAsSpam(String user){
+		InboxPage inboxPage = new InboxPage(driver);
+		inboxPage.goToLetter(user);
+		MessagePage messagePage = new MessagePage(driver);
+		messagePage.markLetterAsSpam();
 	}
 
 	
