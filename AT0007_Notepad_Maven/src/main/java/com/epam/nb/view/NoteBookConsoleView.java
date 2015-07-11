@@ -18,7 +18,7 @@ public class NoteBookConsoleView {
 	public void print(List<Note> notes) {
 		for (Note note : notes) {
 			System.out.print(formatDate.format(note.getDate()));
-			System.out.println("  " + note.getContent());
+			System.out.println(" содержание:  " + note.getContent());
 		}
 	}
 
