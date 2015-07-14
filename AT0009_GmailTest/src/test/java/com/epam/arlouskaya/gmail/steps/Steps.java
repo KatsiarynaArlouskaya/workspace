@@ -58,5 +58,11 @@ public class Steps {
 		messagePage.markLetterAsSpam();
 	}
 
+	public boolean checkSpamFrom(String user1) {
+		InboxPage inboxPage = new InboxPage(driver);
+		inboxPage.goToSpamFolder();
+		return inboxPage.isEmailPresent(user1);
+	}
+
 	
 }

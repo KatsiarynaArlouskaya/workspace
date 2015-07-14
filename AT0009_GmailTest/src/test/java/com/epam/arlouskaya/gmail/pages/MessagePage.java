@@ -12,19 +12,34 @@ public class MessagePage extends AbstractPage {
 	private static final Logger logger = LogManager.getLogger(InboxPage.class
 			.getName());
 
-	@FindBy(xpath = "//div[@data-tooltip='Report spam']")
+/*	@FindBy(xpath = "//div[@data-tooltip='Report spam']")
 	WebElement btnSpamReport1;
+	
 	@FindBy(xpath = "//div[@title='Report spam']")
 	WebElement btnSpamReport2;
+	
 	@FindBy(xpath = "//div[@class='T-I J-J5-Ji nN T-I-ax7 T-I-Js-Gs T-I-Js-IF ar7']")
-	WebElement btnSpamReport3;
+	WebElement btnSpamReport3;*/
+	
+	@FindBy(xpath = "//div[@aria-label='More']")
+	WebElement btnMore;
+	
+	@FindBy(xpath = "//div[text()='Report spam']")
+	WebElement btnSpamReport;
+
 
 	public MessagePage(WebDriver driver) {
 		super(driver);
 	}
 
 	public void markLetterAsSpam() {
-		if (isElementPresent(By.xpath("//div[@data-tooltip='Report spam']"))) {
+		btnMore.click();
+		btnSpamReport.click();
+		
+		
+		
+		
+	/*	if (isElementPresent(By.xpath("//div[@data-tooltip='Report spam']"))) {
 			btnSpamReport1.click();
 			logger.info("xpath(//div[@data-tooltip='Report spam']");
 		} else {
@@ -41,7 +56,7 @@ public class MessagePage extends AbstractPage {
 					logger.info("xpath(//div[@class='T-I J-J5-Ji nN T-I-ax7 T-I-Js-Gs T-I-Js-IF ar7']");
 				}
 			}
-		}
+		}*/
 
 	}
 

@@ -39,6 +39,12 @@ public class InboxPage extends AbstractPage{
 	@FindBy(linkText = "Sign out")
 	WebElement btnSignOut;
 	
+	@FindBy(xpath = "//span[text()='More']")
+	WebElement btnmMoreInLeftMenu;
+	
+	@FindBy(linkText = "Spam")
+	WebElement btnmSpam;
+	
 
 	public InboxPage(WebDriver driver) {
 		super(driver);
@@ -51,7 +57,6 @@ public class InboxPage extends AbstractPage{
 		inputMsg.sendKeys(msg);
 		btnSend.click();
 		//WebElement msgWasSend = (new WebDriverWait(driver, 10)).until(visibilityOfElement(By.xpath("//div[text()='Your message has been sent. ']")));
-
 	}
 	
 	public void signOut(){	
@@ -61,28 +66,30 @@ public class InboxPage extends AbstractPage{
 			driver.manage().deleteAllCookies();
 			logger.info("Cookies have been removed");
 		} catch (org.openqa.selenium.UnhandledAlertException e) {
-
-		}
-		
-	/*	if (ExpectedConditions.alertIsPresent().apply(driver) != null){
+			logger.info("Allert was accept. Allert:" + driver.switchTo().alert().getText());
 			driver.switchTo().alert().accept();
-			logger.info("Allert was accept");
-		}*/
-		
-	/*	if (isElementPresent(By.id("gmail-sign-in"))){
-			driver.findElement(By.id("gmail-sign-in")).click();
-			logger.info("go to sign in");
-		}*/
-		if (driver.getCurrentUrl().contains("about")){
-			driver.findElement(By.id("gmail-sign-in")).click();
-			logger.info("go to sign in");
 		}
+		if (ExpectedConditions.alertIsPresent().apply(driver) != null){
+			logger.info("Allert was accept. Allert:" + driver.switchTo().alert().getText());
+			driver.switchTo().alert().accept();
+			}
+
+		
+
 		
 	}
 
-
 	public void goToLetter(String user) {
 		driver.findElement(By.xpath("//span[@email='"+user+"@gmail.com']")).click();
+	}
+	
+	public void goToSpamFolder() {
+		btnmMoreInLeftMenu.click();
+		btnmSpam.click();		
+	}
+	
+	public boolean isEmailPresent(String user) {
+		return isElementPresent(By.xpath("//span[@email='"+user+"@gmail.com']"));
 	}
 
 }

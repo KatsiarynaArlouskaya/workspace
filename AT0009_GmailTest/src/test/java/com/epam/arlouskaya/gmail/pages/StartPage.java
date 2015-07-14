@@ -43,17 +43,12 @@ public class StartPage extends AbstractPage{
 		driver.navigate().to(BASE_URL);
 	}
 
-	public boolean signIn(String username, String password) {
-		try {
-			inputEmail.sendKeys(username);
-		} catch (org.openqa.selenium.UnhandledAlertException e) {
-			if (ExpectedConditions.alertIsPresent().apply(driver) != null){
-			logger.info("Allert was accept. Allert:" + driver.switchTo().alert().getText());
-			driver.switchTo().alert().accept();
-			inputEmail.sendKeys(username);	
-			}
+	public boolean signIn(String username, String password) {	
+		if (driver.getCurrentUrl().contains("about")){
+			driver.findElement(By.id("gmail-sign-in")).click();
+			logger.info("by check url, go to sign in");
 		}
-		
+		inputEmail.sendKeys(username);
 		btnNext.click();
 		if (chbxCookies.getAttribute(CHECKED)!=null){
 			chbxCookies.click();

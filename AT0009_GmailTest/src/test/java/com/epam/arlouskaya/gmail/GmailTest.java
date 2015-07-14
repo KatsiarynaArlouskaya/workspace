@@ -22,14 +22,25 @@ public class GmailTest {
 	  steps.initBrowser();
 	  
   }
-  
+  /*
   @Test
-  public void f() {	  
-	  steps.signIn(USER3, PASSWORD);
+  public void gm1dot1Spam() {	  
+	  steps.signIn(USER1, PASSWORD);
 	  steps.sendMsg(USER2, MSG);
 	  steps.signOut();
 	  steps.signIn(USER2, PASSWORD);
-	  steps.markLetterAsSpam(USER3);
+	  steps.markLetterAsSpam(USER1);
+	  steps.signOut();
+	  steps.signIn(USER1, PASSWORD);
+	  steps.sendMsg(USER2, MSG);
+	  steps.signOut();
+	  steps.signIn(USER2, PASSWORD);
+	  Assert.assertTrue(steps.checkSpamFrom(USER3));
+  }
+  */
+  @Test
+  public void gm1dot2Forward() {	
+	  
   }
 
   @AfterMethod(description = "Stop Browser")
