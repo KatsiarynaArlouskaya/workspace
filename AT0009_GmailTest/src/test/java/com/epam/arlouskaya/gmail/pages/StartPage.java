@@ -43,7 +43,7 @@ public class StartPage extends AbstractPage{
 		driver.navigate().to(BASE_URL);
 	}
 
-	public boolean signIn(String username, String password) {	
+	public void signIn(String username, String password) {	
 		if (driver.getCurrentUrl().contains("about")){
 			driver.findElement(By.id("gmail-sign-in")).click();
 			logger.info("by check url, go to sign in");
@@ -58,17 +58,15 @@ public class StartPage extends AbstractPage{
 		if (driver.getCurrentUrl().contains(ACCOUNT_RECOVERY_PROMT)){
 			logger.info("ACCOUNT_RECOVERY_PROMT");
 			AccountPromtPage accountPromtPage = new AccountPromtPage(driver);
-			return true;
 		}
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-		if (isElementPresent(By.xpath("//a[text()='"+username+"@gmail.com']"))){
-			logger.info("Sign in "+username+"@gmail.com is OK");
-			return true;	
+		if (isElementPresent(By.xpath("//a[text()='"+username+"']"))){
+			logger.info("Sign in "+username+" is OK");
 		}
 		else {
 			logger.info("Open another page "+driver.getTitle()+" url:"+driver.getCurrentUrl());
 		}
-		return false;		
+	
 	}
 	
 

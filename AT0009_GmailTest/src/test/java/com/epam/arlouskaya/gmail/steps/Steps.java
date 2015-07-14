@@ -9,7 +9,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.epam.arlouskaya.gmail.pages.InboxPage;
 import com.epam.arlouskaya.gmail.pages.MessagePage;
+import com.epam.arlouskaya.gmail.pages.SettingsPage;
 import com.epam.arlouskaya.gmail.pages.StartPage;
+import com.google.common.util.concurrent.SettableFuture;
 
 
 
@@ -18,6 +20,10 @@ public class Steps {
 	private WebDriver driver=null;
 	private static final Logger logger = LogManager.getLogger(Steps.class
 			.getName());
+	private SettingsPage settingsPage;
+	private StartPage startPage;
+	private InboxPage inboxPage;
+	private MessagePage messagePage;
 	
 	
 	public void initBrowser() {
@@ -25,6 +31,10 @@ public class Steps {
 		driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		logger.info("Browser started");
+		settingsPage = new SettingsPage(driver);
+		startPage = new StartPage(driver);
+		inboxPage = new InboxPage(driver);
+		messagePage = new MessagePage(driver);
 	}
 	
 	public void closeDriver()
@@ -32,36 +42,66 @@ public class Steps {
 		driver.quit();
 	}
 	
-	public boolean signIn(String username, String password) {
-		StartPage startPage = new StartPage(driver);
+	public void signIn(String username, String password) {
 		startPage.openPage();
-		return startPage.signIn(username, password);	
+		startPage.signIn(username, password);	
 	}	
 	
 	public boolean  signOut() {
-		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.signOut();
 		return true;
 	}
 
 	public boolean sendMsg(String user, String msg) {	
-		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.createNewMsg(user, msg);
 		logger.info("Send msg is Ok");
 		return true;
 	}
 	
 	public void markLetterAsSpam(String user){
-		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.goToLetter(user);
-		MessagePage messagePage = new MessagePage(driver);
 		messagePage.markLetterAsSpam();
 	}
 
 	public boolean checkSpamFrom(String user1) {
-		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.goToSpamFolder();
 		return inboxPage.isEmailPresent(user1);
+	}
+
+	public void clickBtnSettings() {
+		inboxPage.clickBtnSettings();
+		
+	}
+
+	public void chooseSettingsInSettings() {
+		inboxPage.chooseInSettingsItemSettings();
+		
+	}
+
+	public void chooseForwardTab() {
+		settingsPage.chooseForwardTab();
+		
+	}
+
+	public void setForwardTo(String user) {
+		settingsPage.setForwardTo(user);
+	}
+
+	public void acceptForward(String user, String password) {
+		inboxPage.goToLetter("forwarding-noreply@google.com");
+		String confirmationCode = messagePage.getThemeOfMsg().substring(2, 11);
+		logger.info("confirmation code:"+confirmationCode);
+		signOut();
+		signIn(user, password);
+		inboxPage.clickBtnSettings();
+		inboxPage.chooseInSettingsItemSettings();
+		settingsPage.chooseForwardTab();
+		settingsPage.enterConfirmCode(confirmationCode);
+	}
+
+	public void chooseForwardCopy() {
+		settingsPage.chooseForwardCopy();
+		
 	}
 
 	

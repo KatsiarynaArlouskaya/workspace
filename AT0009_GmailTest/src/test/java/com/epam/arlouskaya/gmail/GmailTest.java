@@ -10,9 +10,9 @@ import com.epam.arlouskaya.gmail.steps.Steps;
 public class GmailTest {
 	
 	private Steps steps;
-	private static final String USER1="orlkat201501";
-	private static final String USER2="orlkat201502";
-	private static final String USER3="orlkat201503";
+	private static final String USER1="orlkat201501@gmail.com";
+	private static final String USER2="orlkat201502@gmail.com";
+	private static final String USER3="orlkat201503@gmail.com";
 	private static final String PASSWORD = "epam2015";
 	private static final String MSG = "Default message";
 
@@ -22,10 +22,10 @@ public class GmailTest {
 	  steps.initBrowser();
 	  
   }
-  /*
-  @Test
+
+  /*	  @Test
   public void gm1dot1Spam() {	  
-	  steps.signIn(USER1, PASSWORD);
+  steps.signIn(USER1, PASSWORD);
 	  steps.sendMsg(USER2, MSG);
 	  steps.signOut();
 	  steps.signIn(USER2, PASSWORD);
@@ -35,11 +35,20 @@ public class GmailTest {
 	  steps.sendMsg(USER2, MSG);
 	  steps.signOut();
 	  steps.signIn(USER2, PASSWORD);
-	  Assert.assertTrue(steps.checkSpamFrom(USER3));
-  }
-  */
+	  Assert.assertTrue(steps.checkSpamFrom(USER1));
+  }*/
+ 
   @Test
   public void gm1dot2Forward() {	
+	  steps.signIn(USER2, PASSWORD);
+	  steps.clickBtnSettings();
+	  steps.chooseSettingsInSettings();
+	  steps.chooseForwardTab();
+	  steps.setForwardTo(USER3);
+	  steps.signOut();
+	  steps.signIn(USER3, PASSWORD);
+	  steps.acceptForward(USER2, PASSWORD);
+	  steps.chooseForwardCopy();
 	  
   }
 

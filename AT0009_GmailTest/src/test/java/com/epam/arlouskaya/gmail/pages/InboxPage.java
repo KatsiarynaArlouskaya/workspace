@@ -1,6 +1,5 @@
 package com.epam.arlouskaya.gmail.pages;
 
-import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +15,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class InboxPage extends AbstractPage{
 	private static final Logger logger = LogManager.getLogger(InboxPage.class.getName());
-	private final static String DOMAIN = "@gmail.com";
 	
 	
 	@FindBy(xpath = "//div[@class='T-I J-J5-Ji T-I-KE L3']")
@@ -40,10 +38,16 @@ public class InboxPage extends AbstractPage{
 	WebElement btnSignOut;
 	
 	@FindBy(xpath = "//span[text()='More']")
-	WebElement btnmMoreInLeftMenu;
+	WebElement btnMoreInLeftMenu;
 	
 	@FindBy(linkText = "Spam")
-	WebElement btnmSpam;
+	WebElement btnSpam;
+	
+	@FindBy(xpath = "//div[@class='T-I J-J5-Ji ash T-I-ax7 L3']")
+	WebElement btnSettings;
+	
+	@FindBy(xpath = "//div[text()='Settings']")
+	WebElement btnSettingsInSettings;
 	
 
 	public InboxPage(WebDriver driver) {
@@ -52,7 +56,7 @@ public class InboxPage extends AbstractPage{
 	
 	public void createNewMsg(String receiver, String msg){
 		btnCompose.click();
-		inputTo.sendKeys(receiver+DOMAIN);
+		inputTo.sendKeys(receiver);
 		inputSubject.sendKeys(msg);
 		inputMsg.sendKeys(msg);
 		btnSend.click();
@@ -80,16 +84,27 @@ public class InboxPage extends AbstractPage{
 	}
 
 	public void goToLetter(String user) {
-		driver.findElement(By.xpath("//span[@email='"+user+"@gmail.com']")).click();
+		driver.findElement(By.xpath("//span[@email='"+user+"']")).click();
 	}
 	
 	public void goToSpamFolder() {
-		btnmMoreInLeftMenu.click();
-		btnmSpam.click();		
+		btnMoreInLeftMenu.click();
+		btnSpam.click();		
 	}
 	
 	public boolean isEmailPresent(String user) {
-		return isElementPresent(By.xpath("//span[@email='"+user+"@gmail.com']"));
+		return isElementPresent(By.xpath("//span[@email='"+user+"']"));
 	}
+
+	public void clickBtnSettings() {
+		btnSettings.click();		
+	}
+	
+	public void chooseInSettingsItemSettings() {
+		btnSettingsInSettings.click();		
+	}
+	
+
+
 
 }
