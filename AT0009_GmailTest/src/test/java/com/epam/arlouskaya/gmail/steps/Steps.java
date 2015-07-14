@@ -52,10 +52,14 @@ public class Steps {
 		return true;
 	}
 
-	public boolean sendMsg(String user, String msg) {	
+	public void sendMsg(String user, String msg) {	
 		inboxPage.createNewMsg(user, msg);
 		logger.info("Send msg is Ok");
-		return true;
+	}
+	
+	public void sendMsgWithAttach(String user, String msg, String pathToAtt) {
+		inboxPage.createNewMsgWithAttach(user, msg, pathToAtt);
+		
 	}
 	
 	public void markLetterAsSpam(String user){
@@ -97,12 +101,23 @@ public class Steps {
 		inboxPage.chooseInSettingsItemSettings();
 		settingsPage.chooseForwardTab();
 		settingsPage.enterConfirmCode(confirmationCode);
+		signOut();
 	}
 
-	public void chooseForwardCopy() {
+	public void choosePropertyForwardCopy() {
 		settingsPage.chooseForwardCopy();
 		
 	}
+
+	public void chooseFiltersTab() {
+		settingsPage.chooseFilterTab();		
+	}
+
+	public void createFilter(String user) {
+		settingsPage.createFilter (user);
+	}
+
+
 
 	
 }

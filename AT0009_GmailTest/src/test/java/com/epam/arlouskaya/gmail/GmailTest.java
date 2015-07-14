@@ -15,6 +15,7 @@ public class GmailTest {
 	private static final String USER3="orlkat201503@gmail.com";
 	private static final String PASSWORD = "epam2015";
 	private static final String MSG = "Default message";
+	private static final String PATH_TO_ATT = "c:\\111.txt";
 
   @BeforeMethod(description = "Init browser")
   public void setUp() {
@@ -40,7 +41,7 @@ public class GmailTest {
  
   @Test
   public void gm1dot2Forward() {	
-	  steps.signIn(USER2, PASSWORD);
+	 /* steps.signIn(USER2, PASSWORD);
 	  steps.clickBtnSettings();
 	  steps.chooseSettingsInSettings();
 	  steps.chooseForwardTab();
@@ -48,7 +49,18 @@ public class GmailTest {
 	  steps.signOut();
 	  steps.signIn(USER3, PASSWORD);
 	  steps.acceptForward(USER2, PASSWORD);
-	  steps.chooseForwardCopy();
+	  steps.signIn(USER2, PASSWORD);
+	  steps.clickBtnSettings();
+	  steps.chooseSettingsInSettings();
+	  steps.chooseForwardTab();
+	  steps.choosePropertyForwardCopy();
+	  steps.chooseFiltersTab();
+	  steps.createFilter(USER1);
+	  steps.signOut();*/
+	  steps.signIn(USER1, PASSWORD);
+	  steps.sendMsgWithAttach(USER2, MSG, PATH_TO_ATT);
+	  
+	  
 	  
   }
 

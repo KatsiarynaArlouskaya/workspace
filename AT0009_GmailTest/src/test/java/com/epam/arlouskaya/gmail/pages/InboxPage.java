@@ -1,6 +1,12 @@
 package com.epam.arlouskaya.gmail.pages;
 
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Alert;
@@ -27,6 +33,9 @@ public class InboxPage extends AbstractPage{
 	
 	@FindBy(xpath = "//div[@role='textbox']")
 	WebElement inputMsg;
+	
+	@FindBy(xpath = "//div[@aria-label='Attach files']")
+	WebElement btnAttach;
 	
 	@FindBy(xpath = "//div[contains(@aria-label,'(Ctrl-Enter)‬')]")
 	WebElement btnSend;
@@ -60,8 +69,36 @@ public class InboxPage extends AbstractPage{
 		inputSubject.sendKeys(msg);
 		inputMsg.sendKeys(msg);
 		btnSend.click();
-		//WebElement msgWasSend = (new WebDriverWait(driver, 10)).until(visibilityOfElement(By.xpath("//div[text()='Your message has been sent. ']")));
 	}
+	
+	public void createNewMsgWithAttach(String receiver, String msg, String pathToAtt) {
+		btnCompose.click();
+		inputTo.sendKeys(receiver);
+		inputSubject.sendKeys(msg);
+		inputMsg.sendKeys(msg);
+		btnAttach.click();
+		 //put path to your image in a clipboard
+	    StringSelection ss = new StringSelection(pathToAtt);
+	    Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
+	  //imitate mouse events like ENTER, CTRL+C, CTRL+V
+		try {
+			Robot robot = new Robot();
+		    robot.keyPress(KeyEvent.VK_ENTER);
+		    robot.keyRelease(KeyEvent.VK_ENTER);
+		    robot.keyPress(KeyEvent.VK_CONTROL);
+		    robot.keyPress(KeyEvent.VK_V);
+		    robot.keyRelease(KeyEvent.VK_V);
+		    robot.keyRelease(KeyEvent.VK_CONTROL);
+		    robot.delay(3000);
+		    robot.keyPress(KeyEvent.VK_ENTER);
+		    robot.keyRelease(KeyEvent.VK_ENTER);
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		btnSend.click();
+	}
+	
 	
 	public void signOut(){	
 		/*btnAccount.click();
@@ -77,10 +114,6 @@ public class InboxPage extends AbstractPage{
 			logger.info("Allert was accept. Allert:" + driver.switchTo().alert().getText());
 			driver.switchTo().alert().accept();
 			}
-
-		
-
-		
 	}
 
 	public void goToLetter(String user) {
@@ -103,7 +136,8 @@ public class InboxPage extends AbstractPage{
 	public void chooseInSettingsItemSettings() {
 		btnSettingsInSettings.click();		
 	}
-	
+
+
 
 
 
