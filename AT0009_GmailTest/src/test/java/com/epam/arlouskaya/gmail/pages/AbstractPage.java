@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class AbstractPage {
 
@@ -25,13 +27,23 @@ public abstract class AbstractPage {
 		return this.driver.findElements(locator).size() > 0;
 	}
 
-	public ExpectedCondition<WebElement> visibilityOfElement(final By locator) {
+	private ExpectedCondition<WebElement> visibilityOfElement(final By locator) {
 		return new ExpectedCondition<WebElement>() {
 			public WebElement apply(WebDriver dr) {
-				return dr.findElement(locator);
+				WebElement toReturn = dr.findElement(locator);
+				if (toReturn.isDisplayed()){
+					return toReturn;
+				}
+				return null;
 			}
 		};
 	}
 	
+	public void waitForElementIsDisplayed(By locator){
+		Wait wait = new WebDriverWait(driver, 20);
+		wait.until(visibilityOfElement(locator));
+	}
+	
+
 	
 }

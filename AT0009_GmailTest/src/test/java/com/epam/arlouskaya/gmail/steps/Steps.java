@@ -22,8 +22,8 @@ public class Steps {
 			.getName());
 	private SettingsPage settingsPage;
 	private StartPage startPage;
-	private InboxPage inboxPage;
 	private MessagePage messagePage;
+	private final String URL_INBOX="https://mail.google.com/mail/#inbox";
 	
 	
 	public void initBrowser() {
@@ -33,7 +33,6 @@ public class Steps {
 		logger.info("Browser started");
 		settingsPage = new SettingsPage(driver);
 		startPage = new StartPage(driver);
-		inboxPage = new InboxPage(driver);
 		messagePage = new MessagePage(driver);
 	}
 	
@@ -42,42 +41,62 @@ public class Steps {
 		driver.quit();
 	}
 	
+
 	public void signIn(String username, String password) {
 		startPage.openPage();
 		startPage.signIn(username, password);	
 	}	
 	
-	public boolean  signOut() {
+	public boolean signOut() {
+		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.signOut();
 		return true;
 	}
 
 	public void sendMsg(String user, String msg) {	
+		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.createNewMsg(user, msg);
 		logger.info("Send msg is Ok");
 	}
 	
 	public void sendMsgWithAttach(String user, String msg, String pathToAtt) {
+		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.createNewMsgWithAttach(user, msg, pathToAtt);
 		
 	}
 	
 	public void markLetterAsSpam(String user){
+		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.goToLetter(user);
 		messagePage.markLetterAsSpam();
 	}
 
 	public boolean checkSpamFrom(String user1) {
+		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.goToSpamFolder();
+		return inboxPage.isEmailPresent(user1);
+	}
+	
+	public boolean checkTrashFrom(String user1) {
+		InboxPage inboxPage = new InboxPage(driver);
+		inboxPage.goToTrashFolder();
+		return inboxPage.isEmailPresent(user1);		
+	}
+	
+	public boolean checkLetterInboxFrom(String user1) {
+		InboxPage inboxPage = new InboxPage(driver);
+		inboxPage.goToInboxFolder();
 		return inboxPage.isEmailPresent(user1);
 	}
 
 	public void clickBtnSettings() {
+		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.clickBtnSettings();
 		
 	}
 
 	public void chooseSettingsInSettings() {
+		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.chooseInSettingsItemSettings();
 		
 	}
@@ -92,6 +111,7 @@ public class Steps {
 	}
 
 	public void acceptForward(String user, String password) {
+		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.goToLetter("forwarding-noreply@google.com");
 		String confirmationCode = messagePage.getThemeOfMsg().substring(2, 11);
 		logger.info("confirmation code:"+confirmationCode);
@@ -116,6 +136,16 @@ public class Steps {
 	public void createFilter(String user) {
 		settingsPage.createFilter (user);
 	}
+
+	public boolean checkLetterIsImportant(String user) {
+		InboxPage inboxPage = new InboxPage(driver);
+		inboxPage.goToLetter(user);
+		return messagePage.checkImportant();
+	}
+
+
+
+
 
 
 

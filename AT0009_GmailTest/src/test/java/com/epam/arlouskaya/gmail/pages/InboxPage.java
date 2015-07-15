@@ -6,6 +6,7 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,6 +18,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class InboxPage extends AbstractPage{
@@ -28,6 +30,7 @@ public class InboxPage extends AbstractPage{
 	
 	@FindBy(xpath = "//textarea[@name='to']")
 	WebElement inputTo;
+	
 	@FindBy(xpath = "//input[@placeholder='Subject']")
 	WebElement inputSubject;
 	
@@ -52,6 +55,12 @@ public class InboxPage extends AbstractPage{
 	@FindBy(linkText = "Spam")
 	WebElement btnSpam;
 	
+	@FindBy(linkText = "Trash")
+	WebElement btnTrash;
+	
+	@FindBy(xpath = "//a[contains(@title,'Inbox')]")
+	WebElement btnInbox;
+	
 	@FindBy(xpath = "//div[@class='T-I J-J5-Ji ash T-I-ax7 L3']")
 	WebElement btnSettings;
 	
@@ -65,14 +74,17 @@ public class InboxPage extends AbstractPage{
 	
 	public void createNewMsg(String receiver, String msg){
 		btnCompose.click();
+		waitForElementIsDisplayed(By.xpath("//textarea[@name='to']"));		
 		inputTo.sendKeys(receiver);
 		inputSubject.sendKeys(msg);
 		inputMsg.sendKeys(msg);
 		btnSend.click();
+		waitForElementIsDisplayed(By.xpath("//div[contains(text(),'Your message has been sent.')]"));
 	}
 	
 	public void createNewMsgWithAttach(String receiver, String msg, String pathToAtt) {
 		btnCompose.click();
+		waitForElementIsDisplayed(By.xpath("//textarea[@name='to']"));
 		inputTo.sendKeys(receiver);
 		inputSubject.sendKeys(msg);
 		inputMsg.sendKeys(msg);
@@ -89,14 +101,16 @@ public class InboxPage extends AbstractPage{
 		    robot.keyPress(KeyEvent.VK_V);
 		    robot.keyRelease(KeyEvent.VK_V);
 		    robot.keyRelease(KeyEvent.VK_CONTROL);
-		    robot.delay(3000);
+		    robot.delay(4000);
 		    robot.keyPress(KeyEvent.VK_ENTER);
 		    robot.keyRelease(KeyEvent.VK_ENTER);
+		    robot.delay(3000);
 		} catch (AWTException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		btnSend.click();
+		btnSend.click();	
+		waitForElementIsDisplayed(By.xpath("//div[contains(text(),'Your message has been sent.')]"));
 	}
 	
 	
@@ -125,6 +139,15 @@ public class InboxPage extends AbstractPage{
 		btnSpam.click();		
 	}
 	
+	public void goToInboxFolder() {
+		btnInbox.click();
+	}
+	
+	public void goToTrashFolder() {
+		btnMoreInLeftMenu.click();
+		btnTrash.click();
+	}
+	
 	public boolean isEmailPresent(String user) {
 		return isElementPresent(By.xpath("//span[@email='"+user+"']"));
 	}
@@ -136,6 +159,10 @@ public class InboxPage extends AbstractPage{
 	public void chooseInSettingsItemSettings() {
 		btnSettingsInSettings.click();		
 	}
+
+
+
+
 
 
 

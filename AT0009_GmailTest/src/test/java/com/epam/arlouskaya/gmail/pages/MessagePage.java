@@ -23,6 +23,12 @@ public class MessagePage extends AbstractPage {
 	
 	@FindBy(xpath ="//h2[@class='hP']")
 	WebElement themeEmail;
+	
+	@FindBy(xpath = "//img[@data-tooltip='Show details']")
+	WebElement details;
+	
+	@FindBy(xpath = "//div[@data-tooltip='Back to Inbox']")
+	WebElement backToInbox;
 
 
 	public MessagePage(WebDriver driver) {
@@ -40,6 +46,11 @@ public class MessagePage extends AbstractPage {
 	
 	public String getThemeOfMsg(){
 		return themeEmail.getText();
+	}
+
+	public boolean checkImportant() {
+		details.click();
+		return isElementPresent(By.xpath("//span[contains(text(),'Important')]"));
 	}
 	
 	
