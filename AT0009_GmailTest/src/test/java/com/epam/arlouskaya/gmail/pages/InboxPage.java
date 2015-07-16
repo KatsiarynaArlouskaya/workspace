@@ -64,8 +64,11 @@ public class InboxPage extends AbstractPage{
 	@FindBy(xpath = "//div[@class='T-I J-J5-Ji ash T-I-ax7 L3']")
 	WebElement btnSettings;
 	
-	@FindBy(xpath = "//div[text()='Settings']")
+	@FindBy(id="ms")
 	WebElement btnSettingsInSettings;
+	
+	@FindBy(id="pbwc")
+	WebElement btnThemesInSettings;
 	
 
 	public InboxPage(WebDriver driver) {
@@ -101,7 +104,7 @@ public class InboxPage extends AbstractPage{
 		    robot.keyPress(KeyEvent.VK_V);
 		    robot.keyRelease(KeyEvent.VK_V);
 		    robot.keyRelease(KeyEvent.VK_CONTROL);
-		    robot.delay(4000);
+		    robot.delay(3000);
 		    robot.keyPress(KeyEvent.VK_ENTER);
 		    robot.keyRelease(KeyEvent.VK_ENTER);
 		    robot.delay(3000);
@@ -131,24 +134,42 @@ public class InboxPage extends AbstractPage{
 	}
 
 	public void goToLetter(String user) {
-		driver.findElement(By.xpath("//span[@email='"+user+"']")).click();
+		if (driver.findElement(By.xpath("//div[@class='BltHke nH oy8Mbf aE3']")).isDisplayed()){
+			driver.findElement(By.xpath("//div[@class='BltHke nH oy8Mbf aE3']//div[@class='yW']/span[@email='"+user+"']")).click();
+			logger.info("letter in inbox");
+		}
+		else
+			if (driver.findElement(By.xpath("//div[@class='BltHke nH oy8Mbf']")).isDisplayed()){
+				driver.findElement(By.xpath("//div[@class='BltHke nH oy8Mbf']//div[@class='yW']/span[@email='"+user+"']")).click();
+				logger.info("letter in trash");
+			}
+		waitForElementIsDisplayed(By.xpath("//img[@data-tooltip='Show details']"));
 	}
 	
 	public void goToSpamFolder() {
 		btnMoreInLeftMenu.click();
-		btnSpam.click();		
+		btnSpam.click();	
+		waitForElementIsDisplayed(By.xpath("//div[@class='BltHke nH oy8Mbf']"));
 	}
 	
 	public void goToInboxFolder() {
 		btnInbox.click();
+		waitForElementIsDisplayed(By.xpath("//div[@class='BltHke nH oy8Mbf aE3']"));
 	}
 	
 	public void goToTrashFolder() {
 		btnMoreInLeftMenu.click();
 		btnTrash.click();
+		waitForElementIsDisplayed(By.xpath("//div[@class='BltHke nH oy8Mbf']"));
 	}
 	
 	public boolean isEmailPresent(String user) {
+	/*	try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		return isElementPresent(By.xpath("//span[@email='"+user+"']"));
 	}
 
@@ -158,6 +179,12 @@ public class InboxPage extends AbstractPage{
 	
 	public void chooseInSettingsItemSettings() {
 		btnSettingsInSettings.click();		
+	}
+
+	public void chooseInSettingsItemThemes() {
+		btnThemesInSettings.click();
+		waitForElementIsDisplayed(By.xpath("//div[text()='My Photos']"));
+		logger.info("Page Theme Settings is upload");
 	}
 
 

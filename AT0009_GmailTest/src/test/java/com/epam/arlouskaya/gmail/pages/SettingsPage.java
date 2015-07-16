@@ -98,6 +98,7 @@ public class SettingsPage extends AbstractPage{
 		inputVerify.clear();
 		inputVerify.sendKeys(confirmCode);
 		btnVerify.click();	
+		waitForElementIsDisplayed(By.xpath("//input[@name='sx_em' and @value='1']"));
 	}
 
 	public void chooseForwardCopy() {
@@ -117,13 +118,13 @@ public class SettingsPage extends AbstractPage{
 		filterFrom.sendKeys(user);
 		chbxHasAttachment.click();
 		btnCreateFilterNext.click();
-		if (isElementPresent(By.xpath("//span[contains(text(), 'Confirm discard changes')]"))){
+	/*	if (isElementPresent(By.xpath("//span[contains(text(), 'Confirm discard changes')]"))){
 			btnOk.click();
-		}
+		}*/
 		chbxDeleteIt.click();
 		chbxAlwaysMark.click();
 		btnCreateFilterFinish.click();
-
+		waitForElementIsDisplayed(By.xpath("//span[contains(text(),'Your filter was created.')]"));
 	}
 
 }

@@ -52,6 +52,10 @@ public class MessagePage extends AbstractPage {
 		details.click();
 		return isElementPresent(By.xpath("//span[contains(text(),'Important')]"));
 	}
+
+	public boolean hasAtt() {
+		return isElementPresent(By.xpath("//div[@class='hq gt a10']"));
+	}
 	
 	
 

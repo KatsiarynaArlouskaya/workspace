@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -11,6 +12,7 @@ import com.epam.arlouskaya.gmail.pages.InboxPage;
 import com.epam.arlouskaya.gmail.pages.MessagePage;
 import com.epam.arlouskaya.gmail.pages.SettingsPage;
 import com.epam.arlouskaya.gmail.pages.StartPage;
+import com.epam.arlouskaya.gmail.pages.ThemePage;
 import com.google.common.util.concurrent.SettableFuture;
 
 
@@ -23,7 +25,8 @@ public class Steps {
 	private SettingsPage settingsPage;
 	private StartPage startPage;
 	private MessagePage messagePage;
-	private final String URL_INBOX="https://mail.google.com/mail/#inbox";
+	private InboxPage inboxPage;
+	private ThemePage themePage;
 	
 	
 	public void initBrowser() {
@@ -34,6 +37,8 @@ public class Steps {
 		settingsPage = new SettingsPage(driver);
 		startPage = new StartPage(driver);
 		messagePage = new MessagePage(driver);
+		inboxPage = new InboxPage(driver);
+		themePage = new ThemePage(driver);
 	}
 	
 	public void closeDriver()
@@ -47,8 +52,7 @@ public class Steps {
 		startPage.signIn(username, password);	
 	}	
 	
-	public boolean signOut() {
-		InboxPage inboxPage = new InboxPage(driver);
+	public boolean signOut() {		
 		inboxPage.signOut();
 		return true;
 	}
@@ -96,9 +100,11 @@ public class Steps {
 	}
 
 	public void chooseSettingsInSettings() {
-		InboxPage inboxPage = new InboxPage(driver);
-		inboxPage.chooseInSettingsItemSettings();
-		
+		inboxPage.chooseInSettingsItemSettings();	
+	}
+	
+	public void chooseThemesInSettings() {
+		inboxPage.chooseInSettingsItemThemes();		
 	}
 
 	public void chooseForwardTab() {
@@ -110,7 +116,7 @@ public class Steps {
 		settingsPage.setForwardTo(user);
 	}
 
-	public void acceptForward(String user, String password) {
+	public void acceptForwardAndSignOut(String user, String password) {
 		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.goToLetter("forwarding-noreply@google.com");
 		String confirmationCode = messagePage.getThemeOfMsg().substring(2, 11);
@@ -138,10 +144,31 @@ public class Steps {
 	}
 
 	public boolean checkLetterIsImportant(String user) {
-		InboxPage inboxPage = new InboxPage(driver);
-		inboxPage.goToLetter(user);
 		return messagePage.checkImportant();
 	}
+
+	public boolean checkLetterHasAtt(String user) {
+		return messagePage.hasAtt();
+	}
+
+	public void goToMsg(String user) {
+		InboxPage inboxPage = new InboxPage(driver);
+		inboxPage.goToLetter(user);		
+	}
+
+	public boolean isMsgPresent(String Msg) {
+		return inboxPage.isElementPresent(By.xpath("//span[contains(text(),Msg)]"));
+	}
+
+	public void selectMyPhoto(String pathToNotPhoto) {
+		themePage.clickToMyPhotos();
+		themePage.gotoUploadPhoto();
+		themePage.clickToSelectPhoto();
+	}
+
+
+
+
 
 
 
