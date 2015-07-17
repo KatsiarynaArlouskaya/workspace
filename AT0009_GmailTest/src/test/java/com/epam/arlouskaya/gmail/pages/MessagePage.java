@@ -1,5 +1,7 @@
 package com.epam.arlouskaya.gmail.pages;
 
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -57,6 +59,11 @@ public class MessagePage extends AbstractPage {
 		return isElementPresent(By.xpath("//div[@class='hq gt a10']"));
 	}
 	
+	public Boolean checkNumberIcon(int numberOfIcons) {
+		List<WebElement> btnEmot= textEmail.findElements(By.xpath("//img[@goomoji]"));
+		logger.info("Number of icons in letter = "+btnEmot.size());
+		return numberOfIcons==btnEmot.size();
+	}
 	
 
 }

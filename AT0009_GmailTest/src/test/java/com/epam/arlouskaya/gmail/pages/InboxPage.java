@@ -6,6 +6,8 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.logging.log4j.LogManager;
@@ -20,6 +22,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.epam.arlouskaya.gmail.util.Utils;
 
 public class InboxPage extends AbstractPage{
 	private static final Logger logger = LogManager.getLogger(InboxPage.class.getName());
@@ -39,6 +43,15 @@ public class InboxPage extends AbstractPage{
 	
 	@FindBy(xpath = "//div[@aria-label='Attach files']")
 	WebElement btnAttach;
+	
+	@FindBy(xpath = "//div[contains(@aria-label,'Insert emoticon')]")
+	WebElement btnEmotIcons;
+	
+	@FindBy(xpath="//div[@class='a8E']/button[2]")
+	WebElement btnShowFacesEmotIcons;
+	
+	@FindBy(className="a8o")
+	WebElement btnCloseEmot;
 	
 	@FindBy(xpath = "//div[contains(@aria-label,'(Ctrl-Enter)‬')]")
 	WebElement btnSend;
@@ -71,67 +84,47 @@ public class InboxPage extends AbstractPage{
 	WebElement btnThemesInSettings;
 	
 
+	
+
 	public InboxPage(WebDriver driver) {
 		super(driver);
 	}
 	
+	//Create different messages
 	public void createNewMsg(String receiver, String msg){
 		btnCompose.click();
 		waitForElementIsDisplayed(By.xpath("//textarea[@name='to']"));		
 		inputTo.sendKeys(receiver);
 		inputSubject.sendKeys(msg);
 		inputMsg.sendKeys(msg);
-		btnSend.click();
-		waitForElementIsDisplayed(By.xpath("//div[contains(text(),'Your message has been sent.')]"));
 	}
 	
-	public void createNewMsgWithAttach(String receiver, String msg, String pathToAtt) {
-		btnCompose.click();
-		waitForElementIsDisplayed(By.xpath("//textarea[@name='to']"));
-		inputTo.sendKeys(receiver);
-		inputSubject.sendKeys(msg);
-		inputMsg.sendKeys(msg);
+	public void addAttach(String pathToAtt) {
 		btnAttach.click();
-		 //put path to your image in a clipboard
-	    StringSelection ss = new StringSelection(pathToAtt);
-	    Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
-	  //imitate mouse events like ENTER, CTRL+C, CTRL+V
-		try {
-			Robot robot = new Robot();
-		    robot.keyPress(KeyEvent.VK_ENTER);
-		    robot.keyRelease(KeyEvent.VK_ENTER);
-		    robot.keyPress(KeyEvent.VK_CONTROL);
-		    robot.keyPress(KeyEvent.VK_V);
-		    robot.keyRelease(KeyEvent.VK_V);
-		    robot.keyRelease(KeyEvent.VK_CONTROL);
-		    robot.delay(3000);
-		    robot.keyPress(KeyEvent.VK_ENTER);
-		    robot.keyRelease(KeyEvent.VK_ENTER);
-		    robot.delay(3000);
-		} catch (AWTException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Utils.uploadFile(pathToAtt);		
+	}
+	
+	public void addEmotIcons(int numberOfIcons) {
+		btnEmotIcons.click();
+		btnShowFacesEmotIcons.click();
+		List<WebElement> btnEmot= driver.findElements(By.className("a8m"));
+		for (int i = 0; i < numberOfIcons; i++) {
+			btnEmot.get(i).click();
 		}
+		btnCloseEmot.click();		
+	}
+	public Boolean checkNumberIcon(int numberOfIcons) {
+		List<WebElement> btnEmot= inputMsg.findElements(By.xpath("//img[contains(@src, 'emoji')]"));
+		logger.info("Number of icons = "+btnEmot.size());
+		return numberOfIcons==btnEmot.size();
+	}
+	
+	public void sendMsg(){
 		btnSend.click();	
 		waitForElementIsDisplayed(By.xpath("//div[contains(text(),'Your message has been sent.')]"));
 	}
 	
-	
-	public void signOut(){	
-		/*btnAccount.click();
-		btnSignOut.click();*/
-		try {
-			driver.manage().deleteAllCookies();
-			logger.info("Cookies have been removed");
-		} catch (org.openqa.selenium.UnhandledAlertException e) {
-			logger.info("Allert was accept. Allert:" + driver.switchTo().alert().getText());
-			driver.switchTo().alert().accept();
-		}
-		if (ExpectedConditions.alertIsPresent().apply(driver) != null){
-			logger.info("Allert was accept. Allert:" + driver.switchTo().alert().getText());
-			driver.switchTo().alert().accept();
-			}
-	}
+	//go to letter
 
 	public void goToLetter(String user) {
 		if (driver.findElement(By.xpath("//div[@class='BltHke nH oy8Mbf aE3']")).isDisplayed()){
@@ -145,6 +138,8 @@ public class InboxPage extends AbstractPage{
 			}
 		waitForElementIsDisplayed(By.xpath("//img[@data-tooltip='Show details']"));
 	}
+	
+	//switch between different folders in left side
 	
 	public void goToSpamFolder() {
 		btnMoreInLeftMenu.click();
@@ -163,16 +158,14 @@ public class InboxPage extends AbstractPage{
 		waitForElementIsDisplayed(By.xpath("//div[@class='BltHke nH oy8Mbf']"));
 	}
 	
+	// check, is e-mail present in a chosen folder 
+	
 	public boolean isEmailPresent(String user) {
-	/*	try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 		return isElementPresent(By.xpath("//span[@email='"+user+"']"));
 	}
 
+	//go to different Settings
+	
 	public void clickBtnSettings() {
 		btnSettings.click();		
 	}
@@ -186,6 +179,10 @@ public class InboxPage extends AbstractPage{
 		waitForElementIsDisplayed(By.xpath("//div[text()='My Photos']"));
 		logger.info("Page Theme Settings is upload");
 	}
+
+
+
+
 
 
 

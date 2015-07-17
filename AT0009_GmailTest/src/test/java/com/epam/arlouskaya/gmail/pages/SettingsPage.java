@@ -118,9 +118,6 @@ public class SettingsPage extends AbstractPage{
 		filterFrom.sendKeys(user);
 		chbxHasAttachment.click();
 		btnCreateFilterNext.click();
-	/*	if (isElementPresent(By.xpath("//span[contains(text(), 'Confirm discard changes')]"))){
-			btnOk.click();
-		}*/
 		chbxDeleteIt.click();
 		chbxAlwaysMark.click();
 		btnCreateFilterFinish.click();

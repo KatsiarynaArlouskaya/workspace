@@ -69,6 +69,20 @@ public class StartPage extends AbstractPage{
 	
 	}
 	
+	public void signOut(){	
+		try {
+			driver.manage().deleteAllCookies();
+			logger.info("Cookies have been removed");
+		} catch (org.openqa.selenium.UnhandledAlertException e) {
+			logger.info("Allert was accept. Allert:" + driver.switchTo().alert().getText());
+			driver.switchTo().alert().accept();
+		}
+		if (ExpectedConditions.alertIsPresent().apply(driver) != null){
+			logger.info("Allert was accept. Allert:" + driver.switchTo().alert().getText());
+			driver.switchTo().alert().accept();
+			}
+	}
+	
 
 	
 	

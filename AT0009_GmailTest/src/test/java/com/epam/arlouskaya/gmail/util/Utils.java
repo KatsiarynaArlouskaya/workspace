@@ -1,5 +1,10 @@
 package com.epam.arlouskaya.gmail.util;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
 public class Utils {
@@ -14,5 +19,29 @@ public class Utils {
 			sb.append(AB.charAt(rnd.nextInt(AB.length())));
 		}
 		return sb.toString();
+	}
+	
+	public static void uploadFile(String pathToAtt)
+	{
+		 //put path to your image in a clipboard
+	    StringSelection ss = new StringSelection(pathToAtt);
+	    Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
+	  //imitate mouse events like ENTER, CTRL+C, CTRL+V
+		try {
+			Robot robot = new Robot();
+		    robot.keyPress(KeyEvent.VK_ENTER);
+		    robot.keyRelease(KeyEvent.VK_ENTER);
+		    robot.keyPress(KeyEvent.VK_CONTROL);
+		    robot.keyPress(KeyEvent.VK_V);
+		    robot.keyRelease(KeyEvent.VK_V);
+		    robot.keyRelease(KeyEvent.VK_CONTROL);
+		    robot.delay(3000);
+		    robot.keyPress(KeyEvent.VK_ENTER);
+		    robot.keyRelease(KeyEvent.VK_ENTER);
+		    robot.delay(3000);
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
