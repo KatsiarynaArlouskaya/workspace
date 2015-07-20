@@ -80,7 +80,7 @@ public class StartPage extends AbstractPage{
 		if (ExpectedConditions.alertIsPresent().apply(driver) != null){
 			logger.info("Allert was accept. Allert:" + driver.switchTo().alert().getText());
 			driver.switchTo().alert().accept();
-			}
+		}
 	}
 	
 

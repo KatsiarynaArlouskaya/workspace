@@ -63,13 +63,11 @@ public class Steps {
 	//send message with different content
 	
 	public void sendMsg(String user, String msg) {	
-		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.createNewMsg(user, msg);
 		inboxPage.sendMsg();
 	}
 	
 	public void sendMsgWithAttach(String user, String msg, String pathToAtt) {
-		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.createNewMsg(user, msg);
 		inboxPage.addAttach(pathToAtt);
 		inboxPage.sendMsg();
@@ -82,25 +80,28 @@ public class Steps {
 		inboxPage.sendMsg();
 		return checkIconsInLetter;
 	}
+	public void sendMsgWithWeeting(String user, String msg,
+		String nameMeeting, String locationMeeting,	String descriptionMeeting) {
+		inboxPage.createNewMsg(user, msg);	
+		//add steps, is not finished!!!!!!!!!!!!!!!
+		
+	}
 
 	
 	//-----------------------------------
 	//check, is e-mail present in different folders
 	
 	public boolean checkSpamFrom(String user1) {
-		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.goToSpamFolder();
 		return inboxPage.isEmailPresent(user1);
 	}
 	
 	public boolean checkTrashFrom(String user1) {
-		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.goToTrashFolder();
 		return inboxPage.isEmailPresent(user1);		
 	}
 	
 	public boolean checkInboxFrom(String user1) {
-		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.goToInboxFolder();
 		return inboxPage.isEmailPresent(user1);
 	}
@@ -109,12 +110,10 @@ public class Steps {
 	//actions with the letter
 	
 	public void goToLetter(String user) {
-		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.goToLetter(user);		
 	}
 	
 	public void markLetterAsSpam(String user){
-		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.goToLetter(user);
 		messagePage.markLetterAsSpam();
 	}
@@ -140,7 +139,6 @@ public class Steps {
 	//settings
 	
 	public void clickBtnSettings() {
-		InboxPage inboxPage = new InboxPage(driver);
 		inboxPage.clickBtnSettings();		
 	}
 	
@@ -208,6 +206,8 @@ public class Steps {
 	public boolean isMsgPresent(String Msg) {
 		return inboxPage.isElementPresent(By.xpath("//*[contains(text(),Msg)]"));
 	}
+
+
 
 
 
