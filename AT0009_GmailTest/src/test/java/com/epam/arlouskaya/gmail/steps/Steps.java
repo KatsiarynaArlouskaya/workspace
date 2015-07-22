@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import com.epam.arlouskaya.gmail.pages.AlertWindow;
 import com.epam.arlouskaya.gmail.pages.InboxPage;
 import com.epam.arlouskaya.gmail.pages.MessagePage;
 import com.epam.arlouskaya.gmail.pages.SettingsPage;
@@ -33,7 +34,7 @@ public class Steps {
 	public void initBrowser() {
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		logger.info("Browser started");
 		settingsPage = new SettingsPage(driver);
 		startPage = new StartPage(driver);
@@ -80,7 +81,7 @@ public class Steps {
 		inboxPage.sendMsg();
 		return checkIconsInLetter;
 	}
-	public void sendMsgWithWeeting(String user, String msg,
+	public void sendMsgWithMeeting(String user, String msg,
 		String nameMeeting, String locationMeeting,	String descriptionMeeting) {
 		inboxPage.createNewMsg(user, msg);	
 		//add steps, is not finished!!!!!!!!!!!!!!!
@@ -205,6 +206,11 @@ public class Steps {
 	
 	public boolean isMsgPresent(String Msg) {
 		return inboxPage.isElementPresent(By.xpath("//*[contains(text(),Msg)]"));
+	}
+
+	public boolean isAlertMsgPresent(String warnMsgBigFile) {
+		AlertWindow alertWindow = new AlertWindow(driver);
+		return alertWindow.isAlertWithMsgPresent(warnMsgBigFile);
 	}
 
 

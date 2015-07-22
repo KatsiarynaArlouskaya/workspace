@@ -17,11 +17,6 @@ public class GmailTest {
 	private static final String USER3 = "orovsk201501@gmail.com";
 	private static final String PASSWORD = "epam2015";
 	private static final int LENGHT_MSG = 10;
-	private static final int NUMBER_ICONS = 3;
-	private static final String PATH_TO_ATT = "c:\\111.txt";
-	private static final String PATH_TO_VERY_BIG_ATT = "c:\\VeryBig.zip";
-	private static final String PATH_TO_NOT_PHOTO = "c:\\111.txt";
-	private static final String URL_PICT_THEME = "https://lh5.ggpht.com/r0SGNlUNQocspUn5Vq3meD_B4XCMHNzmsYX7GYs40h_cddB-3omCWopHqNGVsUqgzL5mdXFFxQ";
 	private static final String NAME_MEETING = "this is meeting";
 	private static final String LOCATION_MEETING = "Minsk, K1/2, 104";
 	private static final String DESCRIPTION_MEETING = "this is description";
@@ -50,6 +45,7 @@ public class GmailTest {
 
 	@Test(enabled = false)
 	public void Forward() {
+		long sizeFile=10L;
 		steps.signIn(USER2, PASSWORD);
 		steps.clickBtnSettings();
 		steps.chooseSettingsInSettings();
@@ -68,7 +64,7 @@ public class GmailTest {
 		steps.signOut();
 		steps.signIn(USER1, PASSWORD);
 		steps.sendMsgWithAttach(USER2, Utils.getRandomString(LENGHT_MSG),
-				PATH_TO_ATT);
+				Utils.getPathToTempFileWithLength(sizeFile));
 		steps.sendMsg(USER2, Utils.getRandomString(LENGHT_MSG));
 		steps.signOut();
 		steps.signIn(USER2, PASSWORD);
@@ -93,7 +89,7 @@ public class GmailTest {
 		steps.signIn(USER1, PASSWORD);
 		steps.sendMsgWithAttach(USER2, Utils.getRandomString(LENGHT_MSG),
 				Utils.getPathToTempFileWithLength(sizeFile));
-		Assert.assertTrue(steps.isMsgPresent(warnMsgBigFile));
+		Assert.assertTrue(steps.isAlertMsgPresent(warnMsgBigFile));
 	}
 
 	@Test(enabled = false)
@@ -112,6 +108,7 @@ public class GmailTest {
 
 	@Test(enabled = false)
 	public void EmotIcons() {
+		int NUMBER_ICONS = 3;
 		steps.signIn(USER1, PASSWORD);
 		Assert.assertTrue(steps.sendMsgWithEmotIcons(USER2,
 				Utils.getRandomString(LENGHT_MSG), NUMBER_ICONS));
@@ -123,6 +120,7 @@ public class GmailTest {
 
 	@Test(enabled = false)
 	public void ThemesSelect() {
+		String URL_PICT_THEME = "https://lh5.ggpht.com/r0SGNlUNQocspUn5Vq3meD_B4XCMHNzmsYX7GYs40h_cddB-3omCWopHqNGVsUqgzL5mdXFFxQ";
 		steps.signIn(USER1, PASSWORD);
 		steps.clickBtnSettings();
 		steps.chooseThemesInSettings();
@@ -133,7 +131,7 @@ public class GmailTest {
 	@Test(enabled = false)
 	public void AttMeeting() {
 		steps.signIn(USER1, PASSWORD);
-		steps.sendMsgWithWeeting(USER2, Utils.getRandomString(LENGHT_MSG),
+		steps.sendMsgWithMeeting(USER2, Utils.getRandomString(LENGHT_MSG),
 				NAME_MEETING, LOCATION_MEETING, DESCRIPTION_MEETING);
 		// Test is not completed
 	}
